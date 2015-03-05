@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cp -r ../plugin.video.kinox /home/sascha/addons/
+cd /home/sascha/addons/
+python addons_xml_generator.py
+zip -r plugin.video.kinox.zip plugin.video.kinox/
+
+scp addons.xml* pi@rasp-wohn:/var/www/
+scp plugin.video.kinox.zip pi@rasp-wohn:/var/www/plugin.video.kinox/
+
