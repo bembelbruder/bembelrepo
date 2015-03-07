@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.video.serien"
+	   name="Serien"
+	   version="0.9.9"
+	   provider-name="bembelbruder">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.bembelresolver" version="0.4.2"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Serien online sehen</summary>
+    <description>Viele Serien über burning-seri.es</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.filmpalast"
+	   name="Filmpalast"
+	   version="1.0.2"
+	   provider-name="bembelbruder">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.bembelresolver" version="0.4.2"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+			 library="default.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Filme über filmpalast.to</summary>
+    <description>Filme über filmpalast.to</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.kkiste"
 	   name="Kinokiste"
 	   version="0.8.3"
@@ -47,44 +85,6 @@
   </requires>
   <extension point="xbmc.python.module" library="lib" />
   <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.serien"
-	   name="Serien"
-	   version="0.9.7"
-	   provider-name="bembelbruder">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.bembelresolver" version="0.4.2"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource"
-			 library="default.py">
-    	<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Serien online sehen</summary>
-    <description>Viele Serien über burning-seri.es</description>
-    <platform>all</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.filmpalast"
-	   name="Filmpalast"
-	   version="1.0.2"
-	   provider-name="bembelbruder">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.bembelresolver" version="0.4.2"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource"
-			 library="default.py">
-    	<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Filme über filmpalast.to</summary>
-    <description>Filme über filmpalast.to</description>
     <platform>all</platform>
   </extension>
 </addon>
