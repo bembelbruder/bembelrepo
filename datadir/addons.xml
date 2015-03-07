@@ -40,7 +40,7 @@
 
 <addon id="plugin.video.kkiste"
 	   name="Kinokiste"
-	   version="0.8.4"
+	   version="0.8.5"
 	   provider-name="bembelbruder">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
