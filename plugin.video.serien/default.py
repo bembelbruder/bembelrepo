@@ -4,16 +4,16 @@ import xbmc #@UnresolvedImport
 import sys
 import urllib
 
-import streamcloud #@UnresolvedImport
-import sockshare #@UnresolvedImport
-import ecostream #@UnresolvedImport
-import filenuke #@UnresolvedImport
-import videoweed #@UnresolvedImport
-import firedrive #@UnresolvedImport
-import movshare #@UnresolvedImport
-import youwatch #@UnresolvedImport
+from hoster import streamcloud #@UnresolvedImport
+from hoster import sockshare #@UnresolvedImport
+from hoster import ecostream #@UnresolvedImport
+from hoster import filenuke #@UnresolvedImport
+from hoster import videoweed #@UnresolvedImport
+from hoster import firedrive #@UnresolvedImport
+from hoster import movshare #@UnresolvedImport
+from hoster import youwatch #@UnresolvedImport
 import help_fns
-import vivo #@UnresolvedImport
+from hoster import vivo #@UnresolvedImport
 
 regexSerien = '<li><a href="(serie/.*)">(.*)</a></li>'
 regexStaffeln = '<li class=" (current)?"><a href="(.*)">(.*)</a></li>'
