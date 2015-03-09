@@ -1,13 +1,11 @@
-#!/bin/sh
+name="script.module.bembelresolver"
+version=`grep -o -a -m 1 -h -r '[0-9]\.[0-9]\.[0-9]' addon.xml`
 
-rm -r /home/sascha/addons/script.module.bembelresolver/*
-rm /home/sascha/addons/script.module.bembelresolver.zip
+cp -r ../$name ../datadir/$name
 
-cp -r ../script.module.bembelresolver /home/sascha/addons/
-cd /home/sascha/addons/
+cd ../datadir/$name
+zip -r $name-${version}.zip $name/
+rm -rf $name
+
+cd ..
 python addons_xml_generator.py
-zip -r script.module.bembelresolver.zip script.module.bembelresolver/
-
-scp addons.xml* pi@rasp-wohn:/var/www/
-scp script.module.bembelresolver.zip pi@rasp-wohn:/var/www/script.module.bembelresolver/
-

@@ -1,5 +1,4 @@
 import urllib
-import help_fns
 import re
 import cookielib
 import urllib2

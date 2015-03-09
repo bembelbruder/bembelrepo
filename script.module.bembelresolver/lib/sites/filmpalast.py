@@ -1,4 +1,4 @@
-import help_fns
+import help_fns #@UnresolvedImport
 from hoster import streamcloud #@UnresolvedImport
 from hoster import movshare #@UnresolvedImport
 from hoster import youwatch #@UnresolvedImport
@@ -30,7 +30,8 @@ class Filmpalast:
 		match = help_fns.findAtUrl('class="hostName">(.*)</p></li>(\\s*.*){4}_blank" href="([^"]*)"', pUrl)
 
 		for m in match:
-			res.append({"urlVideo": m[2], "hoster": m[0]})
+			if m[0] in self.knownHosts:
+				res.append({"urlVideo": m[2], "hoster": m[0]})
 
 		return res
 	
