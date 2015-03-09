@@ -1,11 +1,11 @@
-import xbmcplugin
-import xbmcgui
+import xbmcplugin #@UnresolvedImport
+import xbmcgui #@UnresolvedImport
+import xbmc #@UnresolvedImport
 import sys
-import re
-import urllib, urllib2
+import urllib
 
-from lib import help_fns
-import ecostream
+import help_fns #@UnresolvedImport
+from hoster import ecostream #@UnresolvedImport
 
 thisPlugin = int(sys.argv[1])
 
@@ -37,8 +37,6 @@ def showContent():
 	
 	keyboard = xbmc.Keyboard("", "Film suchen")
 	keyboard.doModal()
-	if (keyboard.isConfirmed()):
-		searchtext = keyboard.getText()
 	
 	url = "http://kkiste.to/search/?q=" + keyboard.getText()
 	
@@ -49,9 +47,9 @@ def showContent():
 
 	
 def addDirectoryItem(name, parameters={},pic=""):
-    li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
-    url = sys.argv[0] + '?' + urllib.urlencode(parameters)
-    return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
+	li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+	url = sys.argv[0] + '?' + urllib.urlencode(parameters)
+	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 	
 params = help_fns.parameters_string_to_dict(sys.argv[2])
 urlFilm = str(params.get("urlFilm", ""))
