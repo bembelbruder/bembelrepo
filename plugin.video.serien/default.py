@@ -1,8 +1,10 @@
 import xbmcplugin #@UnresolvedImport
 import xbmcgui #@UnresolvedImport
 import xbmc #@UnresolvedImport
+import xbmcaddon #@UnresolvedImport
 import sys
 import urllib
+import os
 
 from hoster import streamcloud #@UnresolvedImport
 from hoster import sockshare #@UnresolvedImport
@@ -12,7 +14,8 @@ from hoster import videoweed #@UnresolvedImport
 from hoster import firedrive #@UnresolvedImport
 from hoster import movshare #@UnresolvedImport
 from hoster import youwatch #@UnresolvedImport
-import help_fns
+from hoster import powerwatch #@UnresolvedImport
+import help_fns #@UnresolvedImport
 from hoster import vivo #@UnresolvedImport
 
 regexSerien = '<li><a href="(serie/.*)">(.*)</a></li>'
@@ -30,7 +33,8 @@ knownHosts = {'Streamcloud': streamcloud,
 		'Firedrive': firedrive,
 		'MovShare': movshare,
 		'Vivo': vivo,
-		'YouWatch': youwatch}
+		'YouWatch': youwatch,
+		'PowerWatch': powerwatch}
 
 def showVideo(url, hoster, displayName):
 	global thisPlugin
@@ -47,7 +51,7 @@ def showFolge(url, displayName):
 	match = help_fns.findAtUrl(regexHoster, url)
 	for m in match:
 		if m[2] in knownHosts:
-			addDirectoryItem(m[2], {"urlH": m[0], "hoster": m[2], "displayName": displayName})
+			addDirectoryItem(m[2], {"urlH": m[0], "hoster": m[2], "displayName": displayName}, "", True)
 	xbmcplugin.endOfDirectory(thisPlugin)
 
 def showStaffel(url):
@@ -55,7 +59,7 @@ def showStaffel(url):
 	
 	match = help_fns.findAtUrl(regexFolgen, url)
 	for m in match:
-		addDirectoryItem(m[0] + " - " + m[2], {"urlF": m[1], "displayName": m[2]})
+		addDirectoryItem(m[0] + " - " + m[2], {"urlF": m[1], "displayName": m[0] + " - " + m[2]})
 	xbmcplugin.endOfDirectory(thisPlugin)
 
 def showSerie(url):
@@ -75,11 +79,26 @@ def showContent():
 		addDirectoryItem(m[1], {"urlSerie": m[0]})
 	xbmcplugin.endOfDirectory(thisPlugin)
 	
-def addDirectoryItem(name, parameters={},pic=""):
+def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 	li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
+	
+	if includeDownload:
+		scriptPath = getScriptPath() + "/../script.module.bembelresolver/lib/download.py"
+		print scriptPath
+		videoDir = xbmcaddon.Addon(id="plugin.video.serien").getSetting("downloadDir")
+		commands = []
+		commands.append(("runterladen", "XBMC.RunScript(" + scriptPath + "," +
+						" http://www.burning-seri.es/" + parameters['urlH'] + ", " + 
+						parameters['hoster'] + ", " +
+						videoDir + parameters['displayName'] + ")"))
+		li.addContextMenuItems(commands, True)
+		
 	url = sys.argv[0] + '?' + urllib.urlencode(parameters)
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 	
+def getScriptPath():
+    return os.path.dirname(os.path.realpath(__file__))
+   
 params = help_fns.parameters_string_to_dict(sys.argv[2])
 urlSerie = str(params.get("urlSerie", ""))
 urlStaffel = str(params.get("urlS", ""))

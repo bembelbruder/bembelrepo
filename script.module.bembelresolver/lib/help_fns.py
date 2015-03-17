@@ -3,7 +3,29 @@ import urllib
 import urllib2
 import sys
 
+from hoster import streamcloud
+from hoster import sockshare
+from hoster import filenuke
+from hoster import videoweed
+from hoster import ecostream
+from hoster import firedrive
+from hoster import movshare
+from hoster import vivo
+from hoster import youwatch
+from hoster import powerwatch
+
 reqHeader = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0'
+
+knownHosts = {'Streamcloud': streamcloud, 
+        'Sockshare': sockshare, 
+        'Filenuke': filenuke, 
+        'VideoWeed': videoweed,
+        'Ecostream': ecostream,
+        'Firedrive': firedrive,
+        'MovShare': movshare,
+        'Vivo': vivo,
+        'YouWatch': youwatch,
+        'PowerWatch': powerwatch}
 
 def parameters_string_to_dict(parameters):
     ''' Convert parameters encoded in a URL to a dict. '''

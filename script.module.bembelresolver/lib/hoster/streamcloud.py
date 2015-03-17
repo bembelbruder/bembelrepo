@@ -31,3 +31,6 @@ def getVideoUrl_Outside(url):
 
 def getInnerUrl(url):
 	return help_fns.findAtUrl(regexBitshare, url)[0]
+
+def getDownloadCommand():
+	return ""

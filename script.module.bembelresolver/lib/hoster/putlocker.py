@@ -27,3 +27,6 @@ def getVideoUrl_Outside(url):
 	match = lib.help_fns.findAtUrl(regexPutlocker, url)
 	
 	return getVideoUrl(match[0])
+
+def getDownloadCommand():
+	return ""

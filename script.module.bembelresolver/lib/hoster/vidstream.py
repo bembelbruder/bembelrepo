@@ -31,3 +31,6 @@ def getVideoUrl(url):
 
 def getVideoUrl_Outside(url):
 	return getVideoUrl("")
+
+def getDownloadCommand():
+	return ""

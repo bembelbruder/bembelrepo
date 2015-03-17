@@ -1,3 +1,3 @@
-import vivo
+import powerwatch
 
-print vivo.getVideoUrl("http://vivo.sx/d7aa96688c")
+print powerwatch.getVideoUrl("http://powerwatch.pw/mcgksggf0tct")

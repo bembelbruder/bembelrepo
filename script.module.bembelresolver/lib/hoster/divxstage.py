@@ -19,3 +19,6 @@ def getVideoUrl(url):
 
 	link = help_fns.findAtUrl('url=([^&]*)', url)
 	return link[0]
+
+def getDownloadCommand():
+	return ""

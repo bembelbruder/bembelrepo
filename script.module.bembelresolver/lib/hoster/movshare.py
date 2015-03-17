@@ -19,3 +19,6 @@ def getVideoUrl_Outside(url):
 	match = help_fns.findAtUrl('href="(http://www.movshare.net/[^"]*)"', url)
 	print match
 	return getVideoUrl(match[0])
+
+def getDownloadCommand():
+	return ""

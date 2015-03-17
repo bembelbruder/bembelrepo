@@ -34,3 +34,6 @@ def getVideoUrl(url):
 
 def getVideoUrl_Outside(url):
 	return getVideoUrl(help_fns.findAtUrl("href='(http://youwatch.org/[^']*)'", url)[0])
+
+def getDownloadCommand():
+	return ""

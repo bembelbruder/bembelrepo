@@ -91,3 +91,5 @@ def getVideoUrl_Outside(url):
 	return getVideoUrl(match[0])
 
 
+def getDownloadCommand():
+    return ""

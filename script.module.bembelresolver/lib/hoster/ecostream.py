@@ -31,3 +31,6 @@ def getVideoUrl_Outside(url):
 	match = help_fns.findAtUrl("href='(http://www.ecostream.tv[^']*)'", url)
 
 	return getVideoUrl(match[0])
+
+def getDownloadCommand():
+	return ""

@@ -18,3 +18,6 @@ def getVideoUrl(url):
 def getVideoUrl_Outside(url):
 	match = help_fns.findAtUrl('href="(http://videoweed.es/[^"]*)"', url)
 	return getVideoUrl(match[0])
+
+def getDownloadCommand():
+	return ""
