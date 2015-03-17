@@ -1,4 +1,4 @@
-from lib import help_fns #@UnresolvedImport
+import help_fns
 
 class KKiste:
 	def getName(self):

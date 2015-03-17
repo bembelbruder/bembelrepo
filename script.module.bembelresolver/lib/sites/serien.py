@@ -11,7 +11,7 @@ class Serien:
         for m in match:
             newSerie = Serie()
             newSerie.name = m[1]
-            newSerien.url = m[0]
+            newSerie.url = m[0]
             res.append(newSerie)
             
         return res
@@ -19,9 +19,6 @@ class Serien:
 class Serie:
     regexStaffeln = '<li class=" (current)?"><a href="(.*)">(.*)</a></li>'
 
-    def __init__(self):
-        pass
-    
     def __init__(self, url):
         self.url = url
         
@@ -44,9 +41,6 @@ class Serie:
 class Staffel:
     regexFolgen = '<td>(\d{1,2})</td>\n.*<td><a href="(.*)">\n.*<strong>(.*)</strong>'
 
-    def __init__(self):
-        pass
-    
     def __init__(self, url):
         self.url = url
         
@@ -69,9 +63,6 @@ class Staffel:
 class Folge:
     regexHoster = 'href="(.*)"><span\n\W*class="icon (.*)"></span> (.*) - Teil 1</a>'
 
-    def __init__(self):
-        pass
-    
     def __init__(self, url, displayName):
         self.url = url
         self.displayName = displayName
@@ -97,8 +88,6 @@ class Folge:
         return False
     
 class Hoster:
-    def __init__(self):
-        pass
     
     def __init__(self, url, hoster, displayName):
         self.url = url
@@ -112,7 +101,7 @@ class Hoster:
         return help_fns.knownHosts[self.hoster].getVideoUrl_Outside(self.url)
     
     def getImage(self):
-        return "https:" + help_fns.findAtUrl('<img src="(//s.burning-seri.es/img/cover/[^"]*)" alt="Cover"/>', hoster.url)[0]
+        return "https:" + help_fns.findAtUrl('<img src="(//s.burning-seri.es/img/cover/[^"]*)" alt="Cover"/>', self.url)[0]
 
     def isDownloadable(self):
         return True

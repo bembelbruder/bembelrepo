@@ -1,7 +1,5 @@
 import re
-import urllib
 import urllib2
-import sys
 
 from hoster import streamcloud
 from hoster import sockshare
@@ -28,7 +26,6 @@ knownHosts = {'Streamcloud': streamcloud,
         'PowerWatch': powerwatch}
 
 def parameters_string_to_dict(parameters):
-    ''' Convert parameters encoded in a URL to a dict. '''
     paramDict = {}
     if parameters:
         paramPairs = parameters[1:].split("&")
@@ -39,31 +36,41 @@ def parameters_string_to_dict(parameters):
     return paramDict
 
 def findAtUrl(regex, url):
-	return re.compile(regex).findall(openUrl(url))
+    return re.compile(regex).findall(openUrl(url))
 
 def findAtUrlWithData(regex, url, data):
-	return re.compile(regex).findall(openUrlWithData(url, data))
-	
+    return re.compile(regex).findall(openUrlWithData(url, data))
+
 def openUrl(url):
-	req = urllib2.Request(url)
-	req.add_header('User-Agent', reqHeader)
-	response = urllib2.urlopen(req)
-	link = response.read()
-	response.close
-	return link
-	
+    req = urllib2.Request(url)
+    req.add_header('User-Agent', reqHeader)
+    response = urllib2.urlopen(req)
+    link = response.read()
+    response.close
+    return link
+
 def openUrlWithData(url, data):
-	req = urllib2.Request(url)
-	req.add_header('User-Agent', reqHeader)
-	response = urllib2.urlopen(req, data)
-	link = response.read()
-	response.close
-	return link
+    req = urllib2.Request(url)
+    req.add_header('User-Agent', reqHeader)
+    response = urllib2.urlopen(req, data)
+    link = response.read()
+    response.close
+    return link
 
 def openUrlWithDataAndCookie(url, data, cookie):
-	req = urllib2.Request(url)
-	req.add_header('User-Agent', reqHeader)
-	response = urllib2.urlopen(req, data)
-	link = response.read()
-	response.close
-	return link
+    req = urllib2.Request(url)
+    req.add_header('User-Agent', reqHeader)
+    response = urllib2.urlopen(req, data)
+    link = response.read()
+    response.close
+    return link
+
+def extractText(text, begin, end):
+    tmpText = text.split(begin)
+    rows = []
+
+    for text in tmpText[1:-1]:
+        rows.append(begin + text)
+    rows.append(begin + tmpText[-1].split(end)[0])
+    
+    return rows

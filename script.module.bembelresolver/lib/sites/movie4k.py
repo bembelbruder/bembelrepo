@@ -1,11 +1,11 @@
 import re
 import urllib
+import help_fns
 
-from lib import help_fns
-from lib import streamcloud
-from lib import ecostream
-from lib import filenuke
-from lib import movshare
+from hoster import streamcloud
+from hoster import ecostream
+from hoster import filenuke
+from hoster import movshare
 
 import movie
 

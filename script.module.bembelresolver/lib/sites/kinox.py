@@ -1,11 +1,12 @@
-import help_fns #@UnresolvedImport
-from hoster import streamcloud #@UnresolvedImport
-from hoster import movshare #@UnresolvedImport
-from hoster import youwatch #@UnresolvedImport
-from hoster import vidstream #@UnresolvedImport
-from hoster import nowvideo #@UnresolvedImport
-from hoster import divxstage #@UnresolvedImport
-from hoster import vivo #@UnresolvedImport
+import help_fns
+
+from hoster import streamcloud
+from hoster import movshare
+from hoster import youwatch
+from hoster import vidstream
+from hoster import nowvideo
+from hoster import divxstage
+from hoster import vivo
 
 class Kinox:
 	knownHosts = {'StreamCloud.eu': streamcloud,

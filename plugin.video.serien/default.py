@@ -6,7 +6,7 @@ import sys
 import urllib
 import os
 from sites import serien
-from lib import help_fns #@UnresolvedImport
+import help_fns
 
 thisPlugin = int(sys.argv[1])
 urlHost = "http://www.burning-seri.es/"
@@ -17,10 +17,10 @@ def showVideo(hoster):
 	item = xbmcgui.ListItem(hoster.displayName, thumbnailImage = hoster.getImage())
 	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(hoster.getVideoUrl(), item)
 
-def showContent(object):
+def showContent(siteObject):
 	global thisPlugin
 	
-	for o in o.getContent():
+	for o in siteObject.getContent():
 		addDirectoryItem(o.name, o.getParams, includeDownload=o.isDownloadable())
 	xbmcplugin.endOfDirectory(thisPlugin)
 	
@@ -42,22 +42,22 @@ def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 	
 def getCurrentPath():
-    return os.path.dirname(os.path.realpath(__file__))
-   
+	return os.path.dirname(os.path.realpath(__file__))
+
 params = help_fns.parameters_string_to_dict(sys.argv[2])
 url = urlHost + urllib.unquote(str(params.get("url", "")))
-type = urllib.unquote(str(params.get("type", "")))
+siteType = urllib.unquote(str(params.get("type", "")))
 hoster = urllib.unquote(str(params.get("hoster", "")))
 displayName = urllib.unquote(str(params.get("displayName", "")))
 
 if not sys.argv[2]:
-	showContent(serie.Serien())
+	showContent(serien.Serien())
 else:
-	if type == "serie":
-		showContent(serie.Serie(url))
-	if type == "folge":
-		showContent(serie.Folge(url, displayName))
-	if type == "staffel":
-		showContent(serie.Staffel(url))
-	if urlHoster:
-		showVideo(serie.Hoster(url, hoster, displayName))
+	if siteType == "serie":
+		showContent(serien.Serie(url))
+	if siteType == "folge":
+		showContent(serien.Folge(url, displayName))
+	if siteType == "staffel":
+		showContent(serien.Staffel(url))
+	if siteType == "hoster":
+		showVideo(serien.Hoster(url, hoster, displayName))

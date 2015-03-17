@@ -3,9 +3,9 @@ import xbmcgui #@UnresolvedImport
 import xbmc #@UnresolvedImport
 import sys
 import urllib
+import help_fns
 
-import help_fns #@UnresolvedImport
-from hoster import ecostream #@UnresolvedImport
+from hoster import ecostream
 
 thisPlugin = int(sys.argv[1])
 

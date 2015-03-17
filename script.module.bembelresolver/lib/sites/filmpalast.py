@@ -1,9 +1,10 @@
-import help_fns #@UnresolvedImport
-from hoster import streamcloud #@UnresolvedImport
-from hoster import movshare #@UnresolvedImport
-from hoster import youwatch #@UnresolvedImport
-from hoster import vidstream #@UnresolvedImport
-from hoster import played #@UnresolvedImport
+import help_fns
+
+from hoster import streamcloud
+from hoster import movshare
+from hoster import youwatch
+from hoster import vidstream
+from hoster import played
 
 class Filmpalast:
 	knownHosts = {'Streamcloud.eu': streamcloud,
