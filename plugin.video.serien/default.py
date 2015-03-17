@@ -5,78 +5,23 @@ import xbmcaddon #@UnresolvedImport
 import sys
 import urllib
 import os
+from sites import serien
+from lib import help_fns #@UnresolvedImport
 
-from hoster import streamcloud #@UnresolvedImport
-from hoster import sockshare #@UnresolvedImport
-from hoster import ecostream #@UnresolvedImport
-from hoster import filenuke #@UnresolvedImport
-from hoster import videoweed #@UnresolvedImport
-from hoster import firedrive #@UnresolvedImport
-from hoster import movshare #@UnresolvedImport
-from hoster import youwatch #@UnresolvedImport
-from hoster import powerwatch #@UnresolvedImport
-import help_fns #@UnresolvedImport
-from hoster import vivo #@UnresolvedImport
-
-regexSerien = '<li><a href="(serie/.*)">(.*)</a></li>'
-regexStaffeln = '<li class=" (current)?"><a href="(.*)">(.*)</a></li>'
-regexFolgen = '<td>(\d{1,2})</td>\n.*<td><a href="(.*)">\n.*<strong>(.*)</strong>'
-regexHoster = 'href="(.*)"><span\n\W*class="icon (.*)"></span> (.*) - Teil 1</a>'
 thisPlugin = int(sys.argv[1])
 urlHost = "http://www.burning-seri.es/"
 
-knownHosts = {'Streamcloud': streamcloud, 
-		'Sockshare': sockshare, 
-		'Filenuke': filenuke, 
-		'VideoWeed': videoweed,
-		'Ecostream': ecostream,
-		'Firedrive': firedrive,
-		'MovShare': movshare,
-		'Vivo': vivo,
-		'YouWatch': youwatch,
-		'PowerWatch': powerwatch}
-
-def showVideo(url, hoster, displayName):
+def showVideo(hoster):
 	global thisPlugin
 
-	image = "https:" + help_fns.findAtUrl('<img src="(//s.burning-seri.es/img/cover/[^"]*)" alt="Cover"/>', url)[0]
-	print image
+	item = xbmcgui.ListItem(hoster.displayName, thumbnailImage = hoster.getImage())
+	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(hoster.getVideoUrl(), item)
 
-	item = xbmcgui.ListItem(displayName, thumbnailImage = image)
-	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(knownHosts[hoster].getVideoUrl_Outside(url), item)
-
-def showFolge(url, displayName):
+def showContent(object):
 	global thisPlugin
 	
-	match = help_fns.findAtUrl(regexHoster, url)
-	for m in match:
-		if m[2] in knownHosts:
-			addDirectoryItem(m[2], {"urlH": m[0], "hoster": m[2], "displayName": displayName}, "", True)
-	xbmcplugin.endOfDirectory(thisPlugin)
-
-def showStaffel(url):
-	global thisPlugin
-	
-	match = help_fns.findAtUrl(regexFolgen, url)
-	for m in match:
-		addDirectoryItem(m[0] + " - " + m[2], {"urlF": m[1], "displayName": m[0] + " - " + m[2]})
-	xbmcplugin.endOfDirectory(thisPlugin)
-
-def showSerie(url):
-	global thisPlugin
-	
-	match = help_fns.findAtUrl(regexStaffeln, url)
-	print match
-	for m in match:
-		addDirectoryItem("Staffel " + m[2], {"urlS": m[1]})
-	xbmcplugin.endOfDirectory(thisPlugin)
-	
-def showContent():
-	global thisPlugin
-	
-	match = help_fns.findAtUrl(regexSerien, urlHost + "serie-alphabet")
-	for m in match:
-		addDirectoryItem(m[1], {"urlSerie": m[0]})
+	for o in o.getContent():
+		addDirectoryItem(o.name, o.getParams, includeDownload=o.isDownloadable())
 	xbmcplugin.endOfDirectory(thisPlugin)
 	
 def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
@@ -84,11 +29,11 @@ def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 	
 	if includeDownload:
 		scriptPath = getCurrentPath() + "/../script.module.bembelresolver/lib/download.py"
-		print scriptPath
 		videoDir = xbmcaddon.Addon(id="plugin.video.serien").getSetting("downloadDir")
+
 		commands = []
 		commands.append(("runterladen", "XBMC.RunScript(" + scriptPath + "," +
-						" http://www.burning-seri.es/" + parameters['urlH'] + ", " + 
+						" http://www.burning-seri.es/" + parameters['url'] + ", " + 
 						parameters['hoster'] + ", " +
 						videoDir + parameters['displayName'] + ")"))
 		li.addContextMenuItems(commands, True)
@@ -100,21 +45,19 @@ def getCurrentPath():
     return os.path.dirname(os.path.realpath(__file__))
    
 params = help_fns.parameters_string_to_dict(sys.argv[2])
-urlSerie = str(params.get("urlSerie", ""))
-urlStaffel = str(params.get("urlS", ""))
-urlFolge = str(params.get("urlF", ""))
-urlHoster = str(params.get("urlH", ""))
-hoster = str(params.get("hoster", ""))
-displayName = str(params.get("displayName", ""))
+url = urlHost + urllib.unquote(str(params.get("url", "")))
+type = urllib.unquote(str(params.get("type", "")))
+hoster = urllib.unquote(str(params.get("hoster", "")))
+displayName = urllib.unquote(str(params.get("displayName", "")))
 
 if not sys.argv[2]:
-	showContent()
+	showContent(serie.Serien())
 else:
-	if urlSerie:
-		showSerie(urlHost + urllib.unquote(urlSerie))
-	if urlFolge:
-		showFolge(urlHost + urllib.unquote(urlFolge), urllib.unquote(displayName))
-	if urlStaffel:
-		showStaffel(urlHost + urllib.unquote(urlStaffel))
+	if type == "serie":
+		showContent(serie.Serie(url))
+	if type == "folge":
+		showContent(serie.Folge(url, displayName))
+	if type == "staffel":
+		showContent(serie.Staffel(url))
 	if urlHoster:
-		showVideo(urlHost + urllib.unquote(urlHoster), hoster, urllib.unquote(displayName))
+		showVideo(serie.Hoster(url, hoster, displayName))
