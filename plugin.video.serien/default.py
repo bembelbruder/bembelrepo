@@ -83,7 +83,7 @@ def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 	li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
 	
 	if includeDownload:
-		scriptPath = getScriptPath() + "/../script.module.bembelresolver/lib/download.py"
+		scriptPath = getCurrentPath() + "/../script.module.bembelresolver/lib/download.py"
 		print scriptPath
 		videoDir = xbmcaddon.Addon(id="plugin.video.serien").getSetting("downloadDir")
 		commands = []
@@ -96,7 +96,7 @@ def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 	url = sys.argv[0] + '?' + urllib.urlencode(parameters)
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 	
-def getScriptPath():
+def getCurrentPath():
     return os.path.dirname(os.path.realpath(__file__))
    
 params = help_fns.parameters_string_to_dict(sys.argv[2])
