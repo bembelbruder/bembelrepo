@@ -12,6 +12,7 @@ from sites.serien.serie import Serie
 from sites.serien.staffel import Staffel
 from sites.serien.folge import Folge
 from sites.serien.hoster import Hoster
+from hoster.FileNotExistsException import FileNotExistsException
 
 thisPlugin = int(sys.argv[1])
 urlHost = "http://www.burning-seri.es/"
@@ -19,8 +20,11 @@ urlHost = "http://www.burning-seri.es/"
 def showVideo(hoster):
 	global thisPlugin
 
-	item = xbmcgui.ListItem(hoster.displayName, thumbnailImage = hoster.getImage())
-	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(hoster.getVideoUrl(), item)
+	try:
+		item = xbmcgui.ListItem(hoster.displayName, thumbnailImage = hoster.getImage())
+		xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(hoster.getVideoUrl(), item)
+	except FileNotExistsException:
+		xbmc.executebuiltin("Notification(Fehler, Datei existiert nicht)")
 
 def showContent(siteObject):
 	global thisPlugin
