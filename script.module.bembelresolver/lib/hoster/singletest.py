@@ -1,3 +1,3 @@
-import powerwatch
+from hoster import powerwatch
 
-print powerwatch.getVideoUrl("http://powerwatch.pw/mcgksggf0tct")
+print powerwatch.Powerwatch().getVideoUrl("http://powerwatch.pw/mcgksggf0tct")

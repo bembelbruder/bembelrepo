@@ -1,9 +1,9 @@
+import xbmcgui #@UnresolvedImport
+
 import sys
-import xbmcgui
 import help_fns
 import urllib, urlparse
 import os
-import xbmcaddon
 
 def DownloaderClass(url,dest):
     dp = xbmcgui.DialogProgress()

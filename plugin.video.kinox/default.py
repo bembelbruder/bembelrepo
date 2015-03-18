@@ -3,9 +3,9 @@ import xbmcgui #@UnresolvedImport
 import xbmc #@UnresolvedImport
 import sys
 import urllib
+import help_fns 
 
-from sites import kinox #@UnresolvedImport
-import help_fns #@UnresolvedImport
+from sites.kinox import kinox
 
 thisPlugin = int(sys.argv[1])
 

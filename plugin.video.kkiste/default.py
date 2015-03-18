@@ -13,7 +13,7 @@ def showVideo(url, hoster, displayName):
 	global thisPlugin
 	item = xbmcgui.ListItem(url)
 	item.setInfo( type="Video", infoLabels={ "Title": displayName })
-	videoUrl = ecostream.getVideoUrl("http:" + urllib.quote(url[5:]))
+	videoUrl = ecostream.Ecostream().getVideoUrl("http:" + urllib.quote(url[5:]))
 	
 	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(videoUrl, item)
 	

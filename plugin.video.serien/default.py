@@ -5,8 +5,13 @@ import xbmcaddon #@UnresolvedImport
 import sys
 import urllib
 import os
-from sites import serien
 import help_fns
+
+from sites.serien.serien import Serien
+from sites.serien.serie import Serie
+from sites.serien.staffel import Staffel
+from sites.serien.folge import Folge
+from sites.serien.hoster import Hoster
 
 thisPlugin = int(sys.argv[1])
 urlHost = "http://www.burning-seri.es/"
@@ -51,13 +56,13 @@ hoster = urllib.unquote(str(params.get("hoster", "")))
 displayName = urllib.unquote(str(params.get("displayName", "")))
 
 if not sys.argv[2]:
-	showContent(serien.Serien())
+	showContent(Serien())
 else:
 	if siteType == "serie":
-		showContent(serien.Serie(url))
+		showContent(Serie(url))
 	if siteType == "folge":
-		showContent(serien.Folge(url, displayName))
+		showContent(Folge(url, displayName))
 	if siteType == "staffel":
-		showContent(serien.Staffel(url))
+		showContent(Staffel(url))
 	if siteType == "hoster":
-		showVideo(serien.Hoster(url, hoster, displayName))
+		showVideo(Hoster(url, hoster, displayName))

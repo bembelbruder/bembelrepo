@@ -4,8 +4,8 @@ import xbmc  #@UnresolvedImport
 import sys
 import urllib
 
-import help_fns #@UnresolvedImport
-from sites import filmpalast #@UnresolvedImport
+import help_fns
+from sites.filmpalast import filmpalast
 
 thisPlugin = int(sys.argv[1])
 

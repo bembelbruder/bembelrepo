@@ -1,18 +1,6 @@
 import help_fns
 
-from hoster import streamcloud
-from hoster import movshare
-from hoster import youwatch
-from hoster import vidstream
-from hoster import played
-
 class Filmpalast:
-	knownHosts = {'Streamcloud.eu': streamcloud,
-		'Movshare.net': movshare,
-		'Youwatch.org': youwatch,
-		'Vidstream.in': vidstream,
-		'Played.to': played}
-
 
 	def getName(self):
 		return "Filmpalast"
@@ -31,15 +19,15 @@ class Filmpalast:
 		match = help_fns.findAtUrl('class="hostName">(.*)</p></li>(\\s*.*){4}_blank" href="([^"]*)"', pUrl)
 
 		for m in match:
-			if m[0] in self.knownHosts:
+			if m[0] in help_fns.knownHosts:
 				res.append({"urlVideo": m[2], "hoster": m[0]})
 
 		return res
 	
 	def getLinkByHostLink(self, pUrl, pHoster):
-		if pHoster in self.knownHosts:
+		if pHoster in help_fns.knownHosts:
 			try:
-				return self.knownHosts[pHoster].getVideoUrl(pUrl)
+				return help_fns.knownHosts[pHoster].getVideoUrl(pUrl)
 			except:
 				return "Fehler bei " + pUrl
 		else:

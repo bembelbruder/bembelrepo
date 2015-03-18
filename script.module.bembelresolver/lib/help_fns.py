@@ -2,8 +2,6 @@ import re
 import urllib2
 
 from hoster import streamcloud
-from hoster import sockshare
-from hoster import filenuke
 from hoster import videoweed
 from hoster import ecostream
 from hoster import firedrive
@@ -11,19 +9,32 @@ from hoster import movshare
 from hoster import vivo
 from hoster import youwatch
 from hoster import powerwatch
+from hoster import vidstream
+from hoster import played
+from hoster import nowvideo
+from hoster import divxstage
 
 reqHeader = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0'
 
-knownHosts = {'Streamcloud': streamcloud, 
-        'Sockshare': sockshare, 
-        'Filenuke': filenuke, 
-        'VideoWeed': videoweed,
-        'Ecostream': ecostream,
-        'Firedrive': firedrive,
-        'MovShare': movshare,
-        'Vivo': vivo,
-        'YouWatch': youwatch,
-        'PowerWatch': powerwatch}
+knownHosts = {'Streamcloud': streamcloud.Streamcloud(),
+              'Streamcloud.eu': streamcloud.Streamcloud(),
+              'StreamCloud.eu': streamcloud.Streamcloud(),
+              'Vidstream.in': vidstream.Vidstream(),
+              'VidStream.in': vidstream.Vidstream(),
+              'Played.to': played.Played(),
+              'VideoWeed': videoweed.Videoweed(),
+              'Ecostream': ecostream.Ecostream(),
+              'Firedrive': firedrive.Firedrive(),
+              'MovShare': movshare.Movshare(),
+              'Movshare.net': movshare.Movshare(),
+              'MovShare.net': movshare.Movshare(),
+              'NowVideo.sx': nowvideo.Nowvideo(),
+              'DivXStage': divxstage.Divxstage(),
+              'Vivo': vivo.Vivo(),
+              'Vivo.sx': vivo.Vivo(),
+              'YouWatch': youwatch.Youwatch(),
+              'Youwatch.org': youwatch.Youwatch(),
+              'PowerWatch': powerwatch.Powerwatch()}
 
 def parameters_string_to_dict(parameters):
     paramDict = {}

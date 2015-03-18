@@ -1,11 +1,11 @@
-import ecostream
-import filenuke
-import movshare
-import played
-import streamcloud
-import videoweed
-import vidstream
-import youwatch
+from hoster import ecostream
+from hoster import filenuke
+from hoster import movshare
+from hoster import played
+from hoster import streamcloud
+from hoster import videoweed
+from hoster import vidstream
+from hoster import youwatch
 
 ecostreamUrls = ["http://www.ecostream.tv/stream/36e964d02e42774e9105a5a60c794397.html"]
 filenukeUrls = ["http://filenuke.com/yctpsoif70tm"]

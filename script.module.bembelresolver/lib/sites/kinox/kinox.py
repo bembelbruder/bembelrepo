@@ -1,22 +1,6 @@
 import help_fns
 
-from hoster import streamcloud
-from hoster import movshare
-from hoster import youwatch
-from hoster import vidstream
-from hoster import nowvideo
-from hoster import divxstage
-from hoster import vivo
-
 class Kinox:
-	knownHosts = {'StreamCloud.eu': streamcloud,
-		'MovShare.net': movshare,
-		'Youwatch.org': youwatch,
-		'VidStream.in': vidstream,
-		'NowVideo.sx': nowvideo,
-		'DivXStage': divxstage,
-		'Vivo.sx': vivo}
-
 
 	def getName(self):
 		return "Kinox"
@@ -38,7 +22,7 @@ class Kinox:
 
 		match = help_fns.findAtUrl('rel="([^"]*)">\s<div class="Named">([^>]*)</div>', pUrl)
 		for m in match:
-			if m[1] in self.knownHosts:
+			if m[1] in help_fns.knownHosts:
 				res.append({"urlVideo": "http://kinox.to/aGET/Mirror/" + m[0], "hoster": m[1]})
 
 		return res
@@ -50,9 +34,9 @@ class Kinox:
 		res = match[0].replace("\\/", "/")
 		res = res.replace("\\", "")
 		
-		if pHoster in self.knownHosts:
+		if pHoster in help_fns.knownHosts:
 			try:
-				return self.knownHosts[pHoster].getVideoUrl(res)
+				return help_fns.knownHosts[pHoster].getVideoUrl(res)
 			except:
 				return "Fehler bei " + res 
 		else:

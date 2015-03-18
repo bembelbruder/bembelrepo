@@ -54,41 +54,29 @@ def test(p,a,c,k):
         c = c-1
         if k[c]:
             p = re.sub('\\b'+ base10toN(c, 36) +'\\b', k[c], p)
-		
+
     return p
 
 def getVideoUrl(url):
-    #match = help_fns.findAtUrl("href='(http://filenuke.com/[^']*)'", url)
-    #url = match[0]
-	
-	match = help_fns.findAtUrl(regexFilenuke, url)
-	print match
-	
-	data = {'method_free': 'Free'}
-	data = urllib.urlencode(data)
-	
-	match = help_fns.findAtUrlWithData("return p\}\('(.*)\);',(\d{2}),(\d{2}),'(.*)'\.split", url, data)
-	match = help_fns.findAtUrlWithData("var lnk1 = '([^']*)'", url, data)
+    data = {'method_free': 'Free'}
+    data = urllib.urlencode(data)
 
-	scriptMatch = help_fns.findAtUrlWithData('"([^"]*\\.(jpg|png|css|js|css\\?v=1))"', url, data)
-	for sm in scriptMatch:
-		print sm[0]
-		help_fns.openUrl("http://filenuke.com" + sm[0])
-	#p = match[1][0].replace("\\'", "'")
-	#a = int(match[1][1])
-	#c = int(match[1][2])
-	#k = match[1][3].split('|')
-	
-	#match = re.compile("http://[^']*video\.mp4").findall(test(p, a, c, k))
-	print match[0]
-	return match[0]
+    match = help_fns.findAtUrlWithData("var lnk1 = '([^']*)'", url, data)
+
+    scriptMatch = help_fns.findAtUrlWithData('"([^"]*\\.(jpg|png|css|js|css\\?v=1))"', url, data)
+    for sm in scriptMatch:
+        print sm[0]
+        help_fns.openUrl("http://filenuke.com" + sm[0])
+
+    print match[0]
+    return match[0]
 
 def getVideoUrl_Outside(url):
-	print url
-	match = help_fns.findAtUrl("href=['\"](http://filenuke.com/[^'\"]*)['\"]", url)
-	print match
+    print url
+    match = help_fns.findAtUrl("href=['\"](http://filenuke.com/[^'\"]*)['\"]", url)
+    print match
 
-	return getVideoUrl(match[0])
+    return getVideoUrl(match[0])
 
 
 def getDownloadCommand():
