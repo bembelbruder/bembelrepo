@@ -30,7 +30,7 @@ def showContent(siteObject):
 	global thisPlugin
 	
 	for o in siteObject.getContent():
-		addDirectoryItem(o.name, o.getParams, includeDownload=o.isDownloadable())
+		addDirectoryItem(o.name, o.getParams(), includeDownload=o.isDownloadable())
 	xbmcplugin.endOfDirectory(thisPlugin)
 	
 def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
@@ -47,6 +47,7 @@ def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 						videoDir + parameters['displayName'] + ")"))
 		li.addContextMenuItems(commands, True)
 		
+	print parameters
 	url = sys.argv[0] + '?' + urllib.urlencode(parameters)
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 	
@@ -62,11 +63,19 @@ displayName = urllib.unquote(str(params.get("displayName", "")))
 if not sys.argv[2]:
 	showContent(Serien())
 else:
-	if siteType == "serie":
-		showContent(Serie(url))
-	if siteType == "folge":
-		showContent(Folge(url, displayName))
-	if siteType == "staffel":
-		showContent(Staffel(url))
 	if siteType == "hoster":
-		showVideo(Hoster(url, hoster, displayName))
+		newObject = Hoster()
+		newObject.init(url, hoster, displayName)
+		showVideo(newObject)
+	else:
+		if siteType == "serie":
+			newObject = Serie()
+			newObject.init(url)
+		if siteType == "folge":
+			newObject = Folge()
+			newObject.init(url, displayName)
+		if siteType == "staffel":
+			newObject = Staffel()
+			newObject.init(url)
+		
+		showContent(newObject)
