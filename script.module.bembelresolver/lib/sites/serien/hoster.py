@@ -2,13 +2,13 @@ import help_fns
 
 class Hoster:
     
-    def __init__(self, url, hoster, displayName):
+    def init(self, url, hoster, displayName):
         self.url = url
         self.hoster = hoster
         self.displayName = displayName
     
     def getParams(self):
-        return {"url": self.url, type: "hoster", "displayName": self.displayName, "hoster": self.name}
+        return {"url": self.url, "type": "hoster", "displayName": self.displayName, "hoster": self.name}
         
     def getVideoUrl(self):
         return help_fns.knownHosts[self.hoster].getVideoUrl_Outside(self.url)

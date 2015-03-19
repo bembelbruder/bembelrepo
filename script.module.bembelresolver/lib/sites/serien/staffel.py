@@ -5,7 +5,7 @@ from sites.serien.folge import Folge
 class Staffel:
     regexFolgen = '<td>(\d{1,2})</td>\n.*<td><a href="(.*)">\n.*<strong>(.*)</strong>'
 
-    def __init__(self, url):
+    def init(self, url):
         self.url = url
         
     def getParams(self):
@@ -14,7 +14,7 @@ class Staffel:
     def getContent(self):
         res = []
         for m in help_fns.findAtUrl(self.regexFolgen, self.url):
-            newFolge = Folge
+            newFolge = Folge()
             newFolge.name = m[0] + " - " + m[2]
             newFolge.url = m[1]
             res.append(newFolge)

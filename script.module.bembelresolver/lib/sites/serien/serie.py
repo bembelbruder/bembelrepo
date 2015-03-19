@@ -5,7 +5,7 @@ from sites.serien.staffel import Staffel
 class Serie:
     regexStaffeln = '<li class=" (current)?"><a href="(.*)">(.*)</a></li>'
 
-    def __init__(self, url):
+    def init(self, url):
         self.url = url
         
     def getParams(self):
@@ -13,8 +13,8 @@ class Serie:
     
     def getContent(self):
         res = []
-        for m in help_fns.findAtUrl(self.regexStaffel, self.url):
-            newStaffel = Staffel
+        for m in help_fns.findAtUrl(self.regexStaffeln, self.url):
+            newStaffel = Staffel()
             newStaffel.name = "Staffel " + m[2]
             newStaffel.url = m[1]
             res.append(newStaffel)
