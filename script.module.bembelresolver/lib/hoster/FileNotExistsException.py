@@ -1,2 +1,0 @@
-class FileNotExistsException(Exception):
-    pass 
