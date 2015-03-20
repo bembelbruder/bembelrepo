@@ -5,12 +5,12 @@ from sites.serien.hoster import Hoster
 class Folge:
     regexHoster = 'href="(.*)"><span\n\W*class="icon (.*)"></span> (.*) - Teil 1</a>'
 
-    def __init__(self, url, displayName):
+    def init(self, url, displayName):
         self.url = url
         self.displayName = displayName
         
     def getParams(self):
-        return {"url": self.url, type: "folge", "displayName": self.name}
+        return {"url": self.url, "type": "folge", "displayName": self.name}
     
     def getContent(self):
         res = []

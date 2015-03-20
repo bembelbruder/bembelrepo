@@ -7,7 +7,7 @@ from hoster import ecostream
 from hoster import filenuke
 from hoster import movshare
 
-import movie
+from sites import movie
 
 
 urlHost = "http://www.movie4k.to/"

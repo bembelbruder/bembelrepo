@@ -6,6 +6,7 @@ import urllib
 
 import help_fns
 from sites.filmpalast import filmpalast
+from hoster.FileNotExistsException import FileNotExistsException
 
 thisPlugin = int(sys.argv[1])
 
@@ -14,11 +15,12 @@ def showVideo(url, hoster, displayName):
 	item = xbmcgui.ListItem(url)
 	item.setInfo( type="Video", infoLabels={ "Title": displayName })
 
-	print url
-	fp = filmpalast.Filmpalast()
-	videoUrl = fp.getLinkByHostLink(url, hoster)
-
-	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(videoUrl, item)
+	try:
+		fp = filmpalast.Filmpalast()
+		videoUrl = fp.getLinkByHostLink(url, hoster)
+		xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(videoUrl, item)
+	except FileNotExistsException:
+		xbmc.executebuiltin("Notification(Fehler, Datei nicht gefunden)")
 	
 def showFilm(url, displayName):
 	global thisPlugin

@@ -4,7 +4,7 @@ import urllib
 import re
 import time
 import help_fns
-import FileNotExistsException
+from FileNotExistsException import FileNotExistsException
 
 class Streamcloud:
 	regexStreamcloudMP4 = '<input type="hidden" name="op" value="(.*)">\n\W*<input type="hidden" name="usr_login" value="">\n\W*<input type="hidden" name="id" value="(.*)">\n\W*<input type="hidden" name="fname" value="(.*)">\n\W*<input type="hidden" name="referer" value="(.*)">\n\W*<input type="hidden" name="hash" value="">\n\W*<input type="submit" name="imhuman" id="btn_download" class="button gray" value="(.*)">'
@@ -32,8 +32,14 @@ class Streamcloud:
 		return match[0][0]
 		
 	def isFileNotExists(self, link):
-		return False
-	
+		match = re.compile("File Not Found").findall(link)
+		if match:
+			print "keine Datei"
+			return True
+		else:
+			print "eine datei"
+			return False
+		
 	def getVideoUrl_Outside(self, url):
 		return self.getVideoUrl(self.getInnerUrl(url))
 	

@@ -26,10 +26,7 @@ class Filmpalast:
 	
 	def getLinkByHostLink(self, pUrl, pHoster):
 		if pHoster in help_fns.knownHosts:
-			try:
-				return help_fns.knownHosts[pHoster].getVideoUrl(pUrl)
-			except:
-				return "Fehler bei " + pUrl
+			return help_fns.knownHosts[pHoster].getVideoUrl(pUrl)
 		else:
 			return pHoster + " gibt es noch nicht"
 

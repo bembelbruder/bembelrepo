@@ -1,2 +1,2 @@
-class FileNotExistsException(Exception):
+class FileNotExistsException(BaseException):
     pass 
