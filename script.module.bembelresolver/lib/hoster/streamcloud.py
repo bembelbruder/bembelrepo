@@ -34,10 +34,8 @@ class Streamcloud:
 	def isFileNotExists(self, link):
 		match = re.compile("File Not Found").findall(link)
 		if match:
-			print "keine Datei"
 			return True
 		else:
-			print "eine datei"
 			return False
 		
 	def getVideoUrl_Outside(self, url):
