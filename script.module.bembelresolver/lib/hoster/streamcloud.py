@@ -4,7 +4,7 @@ import urllib
 import re
 import time
 import help_fns
-from FileNotExistsException import FileNotExistsException
+from hoster.FileNotExistsException import FileNotExistsException
 
 class Streamcloud:
 	regexStreamcloudMP4 = '<input type="hidden" name="op" value="(.*)">\n\W*<input type="hidden" name="usr_login" value="">\n\W*<input type="hidden" name="id" value="(.*)">\n\W*<input type="hidden" name="fname" value="(.*)">\n\W*<input type="hidden" name="referer" value="(.*)">\n\W*<input type="hidden" name="hash" value="">\n\W*<input type="submit" name="imhuman" id="btn_download" class="button gray" value="(.*)">'
