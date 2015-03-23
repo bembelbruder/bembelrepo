@@ -4,8 +4,11 @@
 	<comment></comment>
 	<projects>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		<project>script.module.bembelresolver</project>
+>>>>>>> branch 'master' of https://github.com/bembelbruder/bembelrepo.git
+=======
 >>>>>>> branch 'master' of https://github.com/bembelbruder/bembelrepo.git
 	</projects>
 	<buildSpec>

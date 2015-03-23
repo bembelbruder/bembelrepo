@@ -28,7 +28,12 @@ def searchFilm(siteObject, plugin):
     keyboard.doModal()
 
     for m in siteObject.searchFilm(keyboard.getText()):
+<<<<<<< HEAD
         addDirectoryItem(m.displayName, {"urlFilm": m.url, "displayName": m.displayName})
+=======
+        print m
+        addDirectoryItem(m['displayName'], {"urlFilm": m['urlFilm'], "displayName": m['displayName']})
+>>>>>>> branch 'master' of https://github.com/bembelbruder/bembelrepo.git
     xbmcplugin.endOfDirectory(plugin)
 
 def showFilm(siteObject, url, displayName, plugin):

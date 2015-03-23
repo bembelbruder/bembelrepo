@@ -6,10 +6,6 @@
 <path>/${PROJECT_DIR_NAME}</path>
 </pydev_pathproperty>
 <pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
-<<<<<<< HEAD
-<path>C:\Users\Sascha.Kronhart\git\bembelrepo\script.module.bembelresolver\lib</path>
-=======
 <path>/home/sascha/.xbmc/addons/script.module.bembelresolver/lib</path>
->>>>>>> branch 'master' of https://github.com/bembelbruder/bembelrepo.git
 </pydev_pathproperty>
 </pydev_project>
