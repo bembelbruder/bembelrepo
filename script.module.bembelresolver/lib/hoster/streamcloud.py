@@ -11,6 +11,9 @@ class Streamcloud:
 	regexStreamcloudFile = 'file: "(.*\.(mp4|flv))"'
 	regexBitshare = 'href="(http://streamcloud[^"]*)"'
 	
+	def getVideoUrlByOutsideLink(self, link):
+		return self.getVideoUrl(re.compile(self.regexBitshare).findall(link)[0])
+	
 	def getVideoUrl(self, url):
 		cj = cookielib.CookieJar()
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
