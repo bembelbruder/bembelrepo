@@ -4,16 +4,17 @@ import xbmc #@UnresolvedImport
 import sys
 import urllib
 
-import help_fns #@UnresolvedImport
-from hoster import ecostream #@UnresolvedImport
+import help_fns
+from hoster.ecostream import Ecostream
 
 thisPlugin = int(sys.argv[1])
 
 def showVideo(url, hoster, displayName):
 	global thisPlugin
+	es = Ecostream()
 	item = xbmcgui.ListItem(url)
 	item.setInfo( type="Video", infoLabels={ "Title": displayName })
-	videoUrl = ecostream.getVideoUrl("http:" + urllib.quote(url[5:]))
+	videoUrl = es.getVideoUrl("http:" + urllib.quote(url[5:]))
 	
 	xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(videoUrl, item)
 	
