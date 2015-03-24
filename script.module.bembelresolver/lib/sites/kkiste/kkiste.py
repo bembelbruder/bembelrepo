@@ -6,7 +6,12 @@ class KKiste(BaseSite):
 		self.dataProvider = dataProvider
 		self.searchUrl = "http://kkiste.to/search/?q="
 		self.searchRegex = '<a href="([^"]*)" title="[^"]*" class="title">([^<]*)</a>'
+		self.searchResultPrefix = "http://kkiste.to"
+		self.partsRegex = 'href="(http://www.ecostream.tv[^"]*)" target="_blank">Ecostream <small>.(.*)\]'
 		self.hosterRegex = 'href="(http://www.ecostream.tv[^"]*)" target="_blank">Ecostream <small>.(.*)\]'
 	
 	def getName(self):
 		return "KKiste"
+
+	def showFilm(self, url, displayName):
+		self.showHoster(url, "Ecostream", displayName)

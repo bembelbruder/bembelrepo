@@ -12,7 +12,8 @@ class Streamcloud:
 	regexBitshare = 'href="(http://streamcloud[^"]*)"'
 	
 	def getVideoUrlByOutsideLink(self, link):
-		return self.getVideoUrl(re.compile(self.regexBitshare).findall(link)[0])
+		tmp = re.compile(self.regexBitshare).findall(link)[0]
+		return self.getVideoUrl(tmp)
 	
 	def getVideoUrl(self, url):
 		cj = cookielib.CookieJar()
@@ -43,6 +44,10 @@ class Streamcloud:
 		
 	def getVideoUrl_Outside(self, url):
 		return self.getVideoUrl(self.getInnerUrl(url))
+	
+	def getInnerUrlByLink(self, link):
+		url = re.compile(self.regexBitshare).findall(link)[0]
+		return url
 	
 	def getInnerUrl(self, url):
 		return help_fns.findAtUrl(self.regexBitshare, url)[0]

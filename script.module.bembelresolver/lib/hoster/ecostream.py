@@ -22,16 +22,24 @@ class Ecostream:
 		data = {'id': tmpId, 'tpm': footerhash + superslots}
 		data = urllib.urlencode(data)
 	
-		print "http://www.ecostream.tv" + url 
 		link = opener.open("http://www.ecostream.tv" + url , data).read()
 	
 		return "http://www.ecostream.tv" + re.compile('"url":"([^"]*)"').findall(link)[0]
 	
+	def getVideoUrlByOutsideLink(self, link):
+		tmp = re.compile(self.regexBitshare).findall(link)[0]
+		return self.getVideoUrl(tmp)
 	
 	def getVideoUrl_Outside(self, url):
 		match = help_fns.findAtUrl("href='(http://www.ecostream.tv[^']*)'", url)
 	
 		return self.getVideoUrl(match[0])
+	
+	def getInnerUrlByLink(self, link):
+		return re.compile('href="(http://www.ecostream.tv[^"]*)"').findall(link)[0]
+	
+	def getInnerUrl(self, url):
+		return help_fns.findAtUrl("href='(http://www.ecostream.tv[^']*)'", url)[0]
 	
 	def getDownloadCommand(self):
 		return ""
