@@ -2,7 +2,9 @@ import help_fns
 import urllib
 import time
 
-class Powerwatch:
+from hoster.BaseHoster import BaseHoster
+
+class Powerwatch(BaseHoster):
     regexPowerwatch = 'href="(http://powerwatch[^"]*)"'
     
     def getVideoUrl(self, url):

@@ -10,3 +10,6 @@ class Filmpalast(BaseSite):
 		
 	def getName(self):
 		return "Filmpalast"
+	
+	def showHoster(self, url, hosterName, displayName):
+		self.showVideoByUrl(url, hosterName, displayName)

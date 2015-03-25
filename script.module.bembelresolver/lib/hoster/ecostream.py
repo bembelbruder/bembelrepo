@@ -3,8 +3,9 @@ import urllib
 import urllib2
 import cookielib
 import help_fns
+from hoster.BaseHoster import BaseHoster
 
-class Ecostream:
+class Ecostream(BaseHoster):
 	def getVideoUrl(self, url):
 		cj = cookielib.CookieJar()
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
@@ -25,21 +26,6 @@ class Ecostream:
 		link = opener.open("http://www.ecostream.tv" + url , data).read()
 	
 		return "http://www.ecostream.tv" + re.compile('"url":"([^"]*)"').findall(link)[0]
-	
-	def getVideoUrlByOutsideLink(self, link):
-		tmp = re.compile(self.regexBitshare).findall(link)[0]
-		return self.getVideoUrl(tmp)
-	
-	def getVideoUrl_Outside(self, url):
-		match = help_fns.findAtUrl("href='(http://www.ecostream.tv[^']*)'", url)
-	
-		return self.getVideoUrl(match[0])
-	
-	def getInnerUrlByLink(self, link):
-		return re.compile('href="(http://www.ecostream.tv[^"]*)"').findall(link)[0]
-	
-	def getInnerUrl(self, url):
-		return help_fns.findAtUrl("href='(http://www.ecostream.tv[^']*)'", url)[0]
 	
 	def getDownloadCommand(self):
 		return ""

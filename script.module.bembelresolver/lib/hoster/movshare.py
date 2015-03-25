@@ -2,18 +2,23 @@ import help_fns
 import re
 import urllib
 
-class Movshare:
+from hoster.BaseHoster import BaseHoster
+
+class Movshare(BaseHoster):
 	def getVideoUrl(self, url):
 		link = help_fns.openUrl(url)
 	
+		print link
 		cid = re.compile('cid="([^"]*)"').findall(link)[0]
 		key = re.compile('key="([^"]*)"').findall(link)[0]
+		myfile = re.compile('file="([^"]*)"').findall(link)[0]
 	
-		data = {"cid": cid, "file": file, "key": key}
+		data = {"cid": cid, "file": myfile, "filekey": key}
 		data = urllib.urlencode(data)
-	
+		print data
+		print help_fns.openUrl("http://www.movshare.net/api/player.api.php?" + data)
 		match = help_fns.findAtUrl("url=([^&]*)", "http://www.movshare.net/api/player.api.php?" + data)
-	
+		
 		return match[0]
 	
 	def getVideoUrl_Outside(self, url):

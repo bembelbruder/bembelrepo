@@ -1,4 +1,5 @@
 from lib.sites.BaseSite import BaseSite
+import help_fns
 
 class Kinox(BaseSite):
 	
@@ -11,3 +12,12 @@ class Kinox(BaseSite):
 		
 	def getName(self):
 		return "Kinox"
+	
+	def showHoster(self, url, hosterName, displayName):
+		link = help_fns.openUrl(url)
+		parts = self.getParts(link, hosterName, displayName)
+		
+		if len(parts) < 2:
+			self.showVideoByLink(link, hosterName, displayName)
+		else:
+			self.dataProvider.printResult(parts)

@@ -2,8 +2,9 @@ import cookielib
 import urllib2
 import re
 import help_fns
+from BaseHoster import BaseHoster
 
-class Divxstage:
+class Divxstage(BaseHoster):
 	def getVideoUrl(self, url):
 		cj = cookielib.CookieJar()
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))

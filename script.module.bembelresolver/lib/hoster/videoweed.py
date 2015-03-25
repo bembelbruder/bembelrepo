@@ -2,7 +2,9 @@ import help_fns
 import re
 import urllib
 
-class Videoweed:
+from hoster.BaseHoster import BaseHoster
+
+class Videoweed(BaseHoster):
 	def getVideoUrl(self, url):
 		link = help_fns.openUrl(url)
 	

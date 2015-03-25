@@ -3,7 +3,9 @@ import urllib2
 import re
 import help_fns
 
-class Nowvideo:
+from hoster.BaseHoster import BaseHoster
+
+class Nowvideo(BaseHoster):
 	def getVideoUrl(self, url):
 		cj = cookielib.CookieJar()
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))

@@ -1,7 +1,8 @@
 import urllib
 import help_fns
+from hoster.BaseHoster import BaseHoster
 
-class Firedrive:
+class Firedrive(BaseHoster):
 	def getVideoUrl(self, url):
 		match = help_fns.findAtUrl('name="confirm" value="([^"]*)"', url)
 		data = {'confirm': match[0]}

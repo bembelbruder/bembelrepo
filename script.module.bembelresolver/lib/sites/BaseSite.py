@@ -14,7 +14,19 @@ class BaseSite:
 		res = self.getHostsByFilm(url, displayName)
 		
 		self.dataProvider.printResult(res)
-	
+
+	def showHoster(self, url, hosterName, displayName):
+		link = help_fns.openUrl(url)
+		
+		parts = self.getParts(link, hosterName, displayName)
+		if len(parts) < 2:
+			self.showVideoByLink(link, hosterName, displayName)
+		else:
+			self.dataProvider.printResult(parts)
+
+	def showPart(self, url, hosterName, displayName):
+		self.showVideoByUrl(url, hosterName, displayName)
+		
 	def showVideoByUrl(self, url, hosterName, displayName):
 		try:
 			videoUrl = self.getLinkByHostUrl(url, hosterName)
@@ -26,24 +38,12 @@ class BaseSite:
 		url = help_fns.knownHosts[hosterName].getInnerUrlByLink(link)
 		self.showVideoByUrl(url, hosterName, displayName)
 	
-	def showHoster(self, url, hosterName, displayName):
-		link = help_fns.openUrl(url)
-		
-		parts = self.getParts(link, hosterName, displayName)
-		if len(parts) < 2:
-			self.showVideoByLink(link, hosterName, displayName)
-		else:
-			self.dataProvider.printResult(parts)
-
 	def searchFilm(self):
 		url = self.searchUrl + self.dataProvider.getSearchString()
 		res = []
 		match = help_fns.findAtUrl(self.searchRegex, url)
 		for r in match:
-			newItem = ResultBean()
-			newItem.name = r[1]
-			newItem.params = {"url": self.searchResultPrefix + r[0], "displayName": r[1], "type": "film"} 
-			res.append(newItem)
+			res.append(ResultBean(r[1], {"url": self.searchResultPrefix + r[0], "displayName": r[1], "type": "film"}))
 		
 		self.dataProvider.printResult(res)
 
@@ -54,12 +54,8 @@ class BaseSite:
 		match = re.compile(self.partsRegex).findall(link)
 
 		res = []
-		print match
 		for m in match:
-			newItem = ResultBean()
-			newItem.name = m[1]
-			newItem.params = {'url': m[0], "hoster": hoster, "displayName": displayName, "type": "part"}
-			res.append(newItem)
+			res.append(ResultBean(m[1], {'url': m[0], "hoster": hoster, "displayName": displayName, "type": "part"}))
 			
 		return res
 	
@@ -69,10 +65,7 @@ class BaseSite:
 		
 		for m in match:
 			if m[0] in help_fns.knownHosts:
-				newItem = ResultBean()
-				newItem.name = m[0]
-				newItem.params = {"url": m[2], "hoster": m[0], "displayName": pDisplayName, "type": "hoster"}
-				res.append(newItem)
+				res.append(ResultBean(m[0], {"url": m[2], "hoster": m[0], "displayName": pDisplayName, "type": "hoster"}))
 
 		return res
 	
@@ -91,10 +84,14 @@ class BaseSite:
 		elif urlType == "hoster":
 			self.showHoster(url, hosterName, displayName)
 		elif urlType == "part":
-			self.showVideoByUrl(url, hosterName, displayName)
+			self.showPart(url, hosterName, displayName)
 		else:
 			self.searchFilm()
 
 class ResultBean:
 	name = ""
 	params = {}
+
+	def __init__(self, name, params):
+		self.name = name
+		self.params = params

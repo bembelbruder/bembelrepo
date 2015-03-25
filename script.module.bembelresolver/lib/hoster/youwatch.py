@@ -5,7 +5,9 @@ import cookielib
 import urllib2
 import time
 
-class Youwatch:
+from hoster.BaseHoster import BaseHoster
+
+class Youwatch(BaseHoster):
 	def getValue(self, name, link):
 		regex = '"' + name + '" value="([^"]*)"' 
 		return re.compile(regex).findall(link)[0]

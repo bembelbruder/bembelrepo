@@ -3,7 +3,9 @@ import re
 import cookielib
 import urllib2
 
-class Vidstream:
+from hoster.BaseHoster import BaseHoster
+
+class Vidstream(BaseHoster):
 	def getData(self, link, tag):
 		match = re.compile('name="' + tag + '" value="([^"]*)"').findall(link)
 		return match[0]

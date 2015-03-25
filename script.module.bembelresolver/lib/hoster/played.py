@@ -1,7 +1,9 @@
 import urllib
 import help_fns
 
-class Played:
+from hoster.BaseHoster import BaseHoster
+
+class Played(BaseHoster):
 	regexPutlocker = '<a href="(http://www.putlocker.com/file/[^"]*)"' 
 	regexPutlocker2 = '<input type="hidden" value="(.*)" name="fuck_you">'
 	regexPlaylist = "playlist: '(.*)'"
