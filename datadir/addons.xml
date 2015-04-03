@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.serien"
 	   name="Serien"
-	   version="1.0.4"
+	   version="1.0.5"
 	   provider-name="bembelbruder">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -39,20 +39,20 @@
 </addon>
 
 <addon id="plugin.video.kkiste"
-	   name="Kinokiste"
+	   name="Kinox"
 	   version="0.8.6"
 	   provider-name="bembelbruder">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.bembelresolver" version="0.4.2"/>
+    <import addon="script.module.bembelresolver" version="0.4.8"/>
   </requires>
   <extension point="xbmc.python.pluginsource"
 			 library="default.py">
     	<provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>Filme über kkiste.com</summary>
-    <description>Filme über kkiste.com</description>
+    <summary>Filme über kinox.to</summary>
+    <description>Filme über kinox.to</description>
     <platform>all</platform>
   </extension>
 </addon>
@@ -78,7 +78,7 @@
 
 <addon id="script.module.bembelresolver"
 	   name="bembelresolver"
-	   version="0.6.3"
+	   version="0.6.4"
 	   provider-name="bembelbruder">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
