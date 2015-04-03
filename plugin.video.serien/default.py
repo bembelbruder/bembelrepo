@@ -71,11 +71,13 @@ else:
 		if siteType == "serie":
 			newObject = Serie()
 			newObject.init(url)
-		if siteType == "folge":
+		elif siteType == "folge":
 			newObject = Folge()
 			newObject.init(url, displayName)
-		if siteType == "staffel":
+		elif siteType == "staffel":
 			newObject = Staffel()
 			newObject.init(url)
+		else:
+			newObject = Serien()
 		
 		showContent(newObject)

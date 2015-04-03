@@ -11,10 +11,11 @@ class Hoster:
         return {"url": self.url, "type": "hoster", "displayName": self.displayName, "hoster": self.name}
         
     def getVideoUrl(self):
-        return help_fns.knownHosts[self.hoster].getVideoUrl_Outside(self.url)
+        return help_fns.knownHosts[self.hoster].getVideoUrl_ByOutsideUrl(self.url)
     
     def getImage(self):
-        return "https:" + help_fns.findAtUrl('<img src="(//s.burning-seri.es/img/cover/[^"]*)" alt="Cover"/>', self.url)[0]
+        return ""
+        #return "https:" + help_fns.findAtUrl('<img src="(//s.burning-seri.es/img/cover/[^"]*)" alt="Cover"/>', self.url)[0]
 
     def isDownloadable(self):
         return True

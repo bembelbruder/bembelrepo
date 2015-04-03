@@ -4,10 +4,14 @@ import urllib
 import time
 
 from hoster.BaseHoster import BaseHoster
+from hoster.FileNotExistsException import FileNotExistsException
 
 class Vivo(BaseHoster):
 	def getVideoUrl(self, pUrl):
 		link = help_fns.openUrl(pUrl)
+		
+		if self.isFileNotExists(link):
+			raise FileNotExistsException
 	
 		myhash = re.compile('name="hash" value="([^"]*)"').findall(link)[0]
 		timestamp = re.compile('name="timestamp" value="([^"]*)"').findall(link)[0]
@@ -23,3 +27,10 @@ class Vivo(BaseHoster):
 	
 	def getDownloadCommand(self):
 		return ""
+	
+	def isFileNotExists(self, link):
+		match = re.compile("The requested file could not be found").findall(link)
+		if match:
+			return True
+		else:
+			return False

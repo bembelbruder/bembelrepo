@@ -1,4 +1,4 @@
-from lib.sites.BaseSite import BaseSite
+from sites.BaseSite import BaseSite
 import help_fns
 
 class Kinox(BaseSite):
@@ -6,8 +6,10 @@ class Kinox(BaseSite):
 	def __init__(self, dataProvider):
 		self.dataProvider = dataProvider
 		self.searchUrl = "http://kinox.to/Search.html?q="
-		self.searchRegex = 'src="/gr/sys/lng/(\\d)\.png" alt="language"></td>\\n\\s*<td.*</td>\\n\\s*<td class="Title"><a href="([^"]*)" onclick="return false;">([^"]*)</a> <span class="Year">(\\d{4})'
-		self.hosterRegex = 'rel="([^"]*)">\s<div class="Named">([^>]*)</div>'  
+		self.searchResultPrefix = "http://kinox.to"
+		self.searchRegex = 'src="/gr/sys/lng/(\\d)\.png" alt="language"></td>\\n\\s*<td.*</td>\\n\\s*<td class="Title"><a href="(?P<url>[^"]*)" onclick="return false;">(?P<name>[^"]*)</a> <span class="Year">(\\d{4})'
+		self.hosterRegex = 'rel="(?P<url>[^"]*)">\s<div class="Named">(?P<hoster>[^>]*)</div>'  
+		self.hosterResultPrefix = "http://kinox.to/aGET/Mirror/"
 		self.partsRegex = '<a rel=\\\\"([^"]*)" class=\\\\"[^"]*">Part (\\d)'
 		
 	def getName(self):

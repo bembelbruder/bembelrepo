@@ -9,6 +9,7 @@ class BaseSite:
 		self.dataProvider = dataProvider
 		self.searchResultPrefix = ""
 		self.partsRegex = ""
+		self.hosterResultPrefix = ""
 	
 	def showFilm(self, url, displayName):
 		res = self.getHostsByFilm(url, displayName)
@@ -35,6 +36,7 @@ class BaseSite:
 			self.dataProvider.handleFileNotExistsException()
 			
 	def showVideoByLink(self, link, hosterName, displayName):
+		link = link.replace("\\", "")
 		url = help_fns.knownHosts[hosterName].getInnerUrlByLink(link)
 		self.showVideoByUrl(url, hosterName, displayName)
 	
@@ -43,7 +45,8 @@ class BaseSite:
 		res = []
 		match = help_fns.findAtUrl(self.searchRegex, url)
 		for r in match:
-			res.append(ResultBean(r[1], {"url": self.searchResultPrefix + r[0], "displayName": r[1], "type": "film"}))
+			x = r.groupdict()
+			res.append(ResultBean(x["name"], {"url": self.searchResultPrefix + x["url"], "displayName": x["name"], "type": "film"}))
 		
 		self.dataProvider.printResult(res)
 
@@ -62,10 +65,14 @@ class BaseSite:
 	def getHostsByFilm(self, pUrl, pDisplayName):
 		res = []
 		match = help_fns.findAtUrl(self.hosterRegex, pUrl)
-		
+
 		for m in match:
-			if m[0] in help_fns.knownHosts:
-				res.append(ResultBean(m[0], {"url": m[2], "hoster": m[0], "displayName": pDisplayName, "type": "hoster"}))
+			gd = m.groupdict()
+			if gd['hoster'] in help_fns.knownHosts:
+				res.append(ResultBean(gd['hoster'], {"url": self.hosterResultPrefix + gd['url'].replace("&amp;", "&"), 
+													 "hoster": gd['hoster'], 
+													 "displayName": pDisplayName, 
+													 "type": "hoster"}))
 
 		return res
 	

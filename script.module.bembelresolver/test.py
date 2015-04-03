@@ -17,10 +17,10 @@ class TestDataProvider:
         print "Spiele Video: " + url
         
 tdp = TestDataProvider()
-fp = Filmpalast(tdp)
+fp = KKiste(tdp)
 
 #fp.searchFilm()
-#fp.showFilm("http://www.filmpalast.to/movies/view/exodus-gotter-und-konige", "Godzilla")
-fp.showHoster("http://www.movshare.net/video/83b199763e515", "Movshare.net", "Godzilla")
-#fp.showPart("http://www.ecostream.tv/stream/c56825c124058745f3b36cc0212c0e27.html", "Ecostream", "Godzilla")
+#fp.showFilm("http://kkiste.to/exodus-stream.html", "Godzilla")
+#fp.showHoster("http://kinox.to/aGET/Mirror/Exodus-1&Hoster=30&Mirror=1", "StreamCloud.eu", "Godzilla")
+fp.showPart("http://www.ecostream.tv/stream/50cb20989bd2ad5cca9a540b1f21cb1b.html", "Ecostream", "Godzilla")
 #fp.showVideoByUrl('http://www.ecostream.tv/stream/c56825c124058745f3b36cc0212c0e27.html', "Ecostream", "Godzilla")

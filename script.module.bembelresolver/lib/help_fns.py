@@ -47,7 +47,7 @@ def parameters_string_to_dict(parameters):
     return paramDict
 
 def findAtUrl(regex, url):
-    return re.compile(regex).findall(openUrl(url))
+    return re.compile(regex).finditer(openUrl(url))
 
 def findAtUrlWithData(regex, url, data):
     return re.compile(regex).findall(openUrlWithData(url, data))
