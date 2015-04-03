@@ -39,7 +39,7 @@
 </addon>
 
 <addon id="plugin.video.kkiste"
-	   name="Kinox"
+	   name="Kinokiste"
 	   version="0.8.6"
 	   provider-name="bembelbruder">
   <requires>
@@ -51,8 +51,8 @@
     	<provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>Filme über kinox.to</summary>
-    <description>Filme über kinox.to</description>
+    <summary>Filme über kinokiste.to</summary>
+    <description>Filme über kinokiste.to</description>
     <platform>all</platform>
   </extension>
 </addon>
