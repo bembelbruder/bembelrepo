@@ -7,6 +7,8 @@ from hoster.BaseHoster import BaseHoster
 from hoster.FileNotExistsException import FileNotExistsException
 
 class Ecostream(BaseHoster):
+	regexInnerUrl = 'href="(http://www.ecostream.tv/stream/[^"]*.html)"'
+
 	def getVideoUrl(self, url):
 		cj = cookielib.CookieJar()
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
