@@ -1,4 +1,4 @@
-from lib.sites.BaseSite import BaseSite
+from sites.BaseSite import BaseSite
 
 class KKiste(BaseSite):
 	
