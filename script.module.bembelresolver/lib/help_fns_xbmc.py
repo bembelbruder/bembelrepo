@@ -1,3 +1,5 @@
+# coding: utf8
+
 import xbmc #@UnresolvedImport
 import xbmcplugin #@UnresolvedImport
 import xbmcgui #@UnresolvedImport
@@ -14,7 +16,12 @@ class help_fns_xbmc:
         keyboard = xbmc.Keyboard("", "Film suchen")
         keyboard.doModal()
     
-        return keyboard.getText()
+        res = keyboard.getText()
+        res = res.replace("ae", "ä")
+        res = res.replace("oe", "ö")
+        res = res.replace("ue", "ü")
+        
+        return res
     
     def handleVideoLink(self, url, displayName):
         item = xbmcgui.ListItem(url)
