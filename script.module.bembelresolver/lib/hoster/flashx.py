@@ -1,7 +1,44 @@
+import help_fns
+import re
+import cookielib
+import urllib
+import urllib2
+import time
+
 from hoster.BaseHoster import BaseHoster
 
 class Flashx(BaseHoster):
     pass
+
+    def getName(self, link, name):
+        return re.compile('name="' + name + '" value="([^"]*)"').findall(link)
+    
+    def getVideoUrl(self, url):
+        cj = cookielib.CookieJar()
+        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+        headers = [('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+                   ('Accept-Encoding', 'none'),
+                   ('Accept-Language', 'en-US,en;q=0.5'),
+                   ('Host', 'www.flashx.tv'),
+                   ('Connection', 'keep-alive'),
+                   ('User-Agent', 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0'),
+                   ]
+        opener.addheaders = headers
+        req = urllib2.Request(url)
+        link = opener.open(req).read()
+        url = "http://www.flashx.tv" + re.compile("action='([^']*)'").findall(link)[0]
+        op = self.getName(link, "op")
+        myid = self.getName(link, "id")
+        fname = self.getName(link, "fname")
+        myhash = self.getName(link, "hash")
+        referer = self.getName(link, 'referer')
+        
+        data = {"op": op, "id": myid, "fname": fname, "hash": myhash, "referer": referer, "usr_login": "", "imhuman": "Proceed to video"}
+        data = urllib.urlencode(data)
+        for c in cj:
+            print c
+        time.sleep(7)
+        print opener.open(url, data).read()
 # <script type='text/javascript'>eval(function(p,a,c,k,e,d){while(c--)if(k[c])p=p.replace(new RegExp('
 # \\b'+c.toString(a)+'\\b','g'),k[c]);return p}('c("3c").3b({3a:[{f:"4://9.3.2/39.38"},{f:"4://t-s.3.2
 # /37/36.35"}],34:"4://t-33.3.2/i/s/32/31.30",2z:"2y",q:2x,p:2w,2v:"2u",2t:"2s",2r:"2q 2p 2o.2",2n:"4:

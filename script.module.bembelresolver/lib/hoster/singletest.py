@@ -1,3 +1,4 @@
-from hoster import powerwatch
+from hoster import vivo
 
-print powerwatch.Powerwatch().getVideoUrl("http://powerwatch.pw/mcgksggf0tct")
+f = vivo.Vivo()
+print f.getVideoUrl("http://vivo.sx/83443bac32")

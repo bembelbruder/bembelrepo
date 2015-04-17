@@ -5,7 +5,7 @@ import time
 from hoster.BaseHoster import BaseHoster
 
 class Powerwatch(BaseHoster):
-    regexPowerwatch = 'href="(http://powerwatch[^"]*)"'
+    regexInnerUrl = 'href="(http://powerwatch[^"]*)"'
     
     def getVideoUrl(self, url):
         regex = '<input type="hidden" name="op" value="(.*)">\n\W*<input type="hidden" name="usr_login" value="(.*)">\n\W*<input type="hidden" name="id" value="(.*)">\n\W*<input type="hidden" name="fname" value="(.*)">\n\W*<input type="hidden" name="referer" value="(.*)">\n\W*<input type="hidden" name="hash" value="(.*)">'
