@@ -1,4 +1,4 @@
-from hoster import vivo
+from hoster import youwatch
 
-f = vivo.Vivo()
-print f.getVideoUrl("http://vivo.sx/83443bac32")
+f = youwatch.Youwatch()
+print f.getVideoUrl("http://youwatch.org/1e3wnj0sddzv")

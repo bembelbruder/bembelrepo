@@ -1,5 +1,4 @@
 import urllib
-import help_fns
 import re
 import cookielib
 import urllib2
@@ -8,6 +7,8 @@ import time
 from hoster.BaseHoster import BaseHoster
 
 class Youwatch(BaseHoster):
+	regexInnerUrl = 'href="(http://youwatch.org[^"]*)"'
+	
 	def getValue(self, name, link):
 		regex = '"' + name + '" value="([^"]*)"' 
 		return re.compile(regex).findall(link)[0]
@@ -24,19 +25,16 @@ class Youwatch(BaseHoster):
 		referer = self.getValue('referer', link)
 		imhuman = self.getValue('imhuman', link)
 		method_premium = self.getValue('method_premium', link)
-	
-		data = {'op': op, 'usr_login': usr_login, 'id': id, 'fname': fname, 'referer': referer, 'hash': hash, 'imhuman': imhuman, 'method_premium': method_premium}
-	
+		myhash = self.getValue("hash", link)
+		myid = self.getValue("id", link)
+		
+		data = {'op': op, 'usr_login': usr_login, 'id': myid, 'fname': fname, 'referer': referer, 'hash': myhash, 'imhuman': imhuman, 'method_premium': method_premium}
 		data = urllib.urlencode(data)
 		time.sleep(11)
 	
 		link = opener.open(url, data).read()
-		match = re.compile("video\\|([^|]*)").findall(link)
+		match = re.compile("'([^']*)'.split").findall(link)
+		match = match[0].split("|")
+
+		return "http://" + match[95] + ".youwatch.org:" + match[94] + "/" + match[93] + "/" + match[92] + "." + match[91]
 	
-		return "http://fs9.youwatch.org:8777/" + match[0] + "/video.mp4"
-	
-	def getVideoUrl_Outside(self, url):
-		return self.getVideoUrl(help_fns.findAtUrl("href='(http://youwatch.org/[^']*)'", url)[0])
-	
-	def getDownloadCommand(self):
-		return ""
