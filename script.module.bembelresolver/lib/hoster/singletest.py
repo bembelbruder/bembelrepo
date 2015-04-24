@@ -1,4 +1,4 @@
-from hoster import youwatch
+from hoster import videoweed
 
-f = youwatch.Youwatch()
-print f.getVideoUrl("http://youwatch.org/1e3wnj0sddzv")
+f = videoweed.Videoweed()
+print f.getVideoUrl("http://www.videoweed.es/file/afdebf34e02d4")
