@@ -1,22 +1,22 @@
-from hoster import vivo
-from sites.filmpalast.filmpalast import Filmpalast
-from sites.kinox.kinox import Kinox
-from sites.kkiste.kkiste import KKiste
 from sites.serien.staffel import Staffel
 from hoster.FileNotExistsException import FileNotExistsException
 from email.mime.text import MIMEText
 import smtplib
 import email.utils
-import getpass
+import sys
+import ConfigParser
 
-#print vivo.Vivo().getVideoUrl("http://vivo.sx/2f06e20a67")
+sys.path.append("/home/pi/kodi/addons/script.module.bembelresolver/lib")
 
 def sendMail(text):
-    recipient = ""
-    sender = ""
-    senderName = ""
-    password = ""
-    smtpServer = ""
+    config = ConfigParser.RawConfigParser()
+    config.read("mailConfig.cfg")
+    
+    recipient = config.get("Mail", "recipient")
+    sender = config.get("Mail", "sender")
+    senderName = config.get("Mail", "senderName")
+    password = config.get("Mail", "password")
+    smtpServer = config.get("Mail", "smtpServer")
     
     msg = MIMEText(text)
     msg.set_unixfrom(senderName)
@@ -43,34 +43,34 @@ class TestDataProvider:
     def handleVideoLink(self, url, name):
         print "Spiele Video: " + url
         
-s = Staffel()
-s.url = "http://bs.to/serie/Navy-CIS/10"
+# s = Staffel()
+# s.url = "http://bs.to/serie/Navy-CIS/10"
+# 
+# fileNotFoundUrls = []
+# exceptionUrls = []
+# 
+# res = ""
+# counter = 0
+# for f in s.getContent():
+#     print f.url
+#     f.url = "http://bs.to/" + f.url
+#     if counter > 3 and counter < 5:
+#         f.displayName = "test"
+#         for h in f.getContent():
+#             h.hoster = h.name
+#             h.url = "http://bs.to/" + h.url
+#             
+#             try:
+#                 h.getVideoUrl()
+#             except FileNotExistsException:
+#                 res += "Folgende url wird nicht gefunden: " + h.url + "\n"
+#                 fileNotFoundUrls.append(h.url)
+#             except:
+#                 res += "Folgende url verursacht einen Fehler: " + h.url + "\n"
+#                 exceptionUrls.append(h.url)
+#     counter += 1
 
-fileNotFoundUrls = []
-exceptionUrls = []
-
-res = ""
-counter = 0
-for f in s.getContent():
-    print f.url
-    f.url = "http://bs.to/" + f.url
-    if counter > 3 and counter < 5:
-        f.displayName = "test"
-        for h in f.getContent():
-            h.hoster = h.name
-            h.url = "http://bs.to/" + h.url
-            
-            try:
-                h.getVideoUrl()
-            except FileNotExistsException:
-                res += "Folgende url wird nicht gefunden: " + h.url + "\n"
-                fileNotFoundUrls.append(h.url)
-            except:
-                res += "Folgende url verursacht einen Fehler: " + h.url + "\n"
-                exceptionUrls.append(h.url)
-    counter += 1
-
-sendMail(res)
+sendMail("test")
 #fp.searchFilm()
 #fp.showFilm("http://kkiste.to/exodus-stream.html", "Godzilla")
 #fp.showHoster("http://kinox.to/aGET/Mirror/Exodus-1&Hoster=30&Mirror=1", "StreamCloud.eu", "Godzilla")
