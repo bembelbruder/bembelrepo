@@ -15,7 +15,7 @@ from sites.serien.hoster import Hoster
 from hoster.FileNotExistsException import FileNotExistsException
 
 thisPlugin = int(sys.argv[1])
-urlHost = "http://www.burning-seri.es/"
+urlHost = "http://bs.to/"
 
 def showVideo(hoster):
 	global thisPlugin

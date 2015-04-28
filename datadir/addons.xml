@@ -2,7 +2,7 @@
 <addons>
 <addon id="plugin.video.serien"
 	   name="Serien"
-	   version="1.0.5"
+	   version="1.0.6"
 	   provider-name="bembelbruder">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -78,7 +78,7 @@
 
 <addon id="script.module.bembelresolver"
 	   name="bembelresolver"
-	   version="0.7.4"
+	   version="0.7.5"
 	   provider-name="bembelbruder">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
