@@ -43,34 +43,34 @@ class TestDataProvider:
     def handleVideoLink(self, url, name):
         print "Spiele Video: " + url
         
-# s = Staffel()
-# s.url = "http://bs.to/serie/Navy-CIS/10"
-# 
-# fileNotFoundUrls = []
-# exceptionUrls = []
-# 
-# res = ""
-# counter = 0
-# for f in s.getContent():
-#     print f.url
-#     f.url = "http://bs.to/" + f.url
-#     if counter > 3 and counter < 5:
-#         f.displayName = "test"
-#         for h in f.getContent():
-#             h.hoster = h.name
-#             h.url = "http://bs.to/" + h.url
-#             
-#             try:
-#                 h.getVideoUrl()
-#             except FileNotExistsException:
-#                 res += "Folgende url wird nicht gefunden: " + h.url + "\n"
-#                 fileNotFoundUrls.append(h.url)
-#             except:
-#                 res += "Folgende url verursacht einen Fehler: " + h.url + "\n"
-#                 exceptionUrls.append(h.url)
-#     counter += 1
+s = Staffel()
+s.url = "http://bs.to/serie/Navy-CIS/10"
+ 
+fileNotFoundUrls = []
+exceptionUrls = []
+ 
+res = ""
+counter = 0
+for f in s.getContent():
+    print f.url
+    f.url = "http://bs.to/" + f.url
+    if counter > 3 and counter < 5:
+        f.displayName = "test"
+        for h in f.getContent():
+            h.hoster = h.name
+            h.url = "http://bs.to/" + h.url
+             
+            try:
+                h.getVideoUrl()
+            except FileNotExistsException:
+                res += "Folgende url wird nicht gefunden: " + h.url + "\n"
+                fileNotFoundUrls.append(h.url)
+            except:
+                res += "Folgende url verursacht einen Fehler: " + h.url + "\n"
+                exceptionUrls.append(h.url)
+    counter += 1
 
-sendMail("test")
+sendMail(res)
 #fp.searchFilm()
 #fp.showFilm("http://kkiste.to/exodus-stream.html", "Godzilla")
 #fp.showHoster("http://kinox.to/aGET/Mirror/Exodus-1&Hoster=30&Mirror=1", "StreamCloud.eu", "Godzilla")
