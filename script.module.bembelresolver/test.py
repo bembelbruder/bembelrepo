@@ -1,16 +1,18 @@
+import sys
+from os.path import expanduser
+sys.path.append(expanduser("~/.kodi/addons/script.module.bembelresolver/lib"))
+
 from sites.serien.staffel import Staffel
 from hoster.FileNotExistsException import FileNotExistsException
 from email.mime.text import MIMEText
 import smtplib
 import email.utils
-import sys
 import ConfigParser
 
-sys.path.append("/home/pi/kodi/addons/script.module.bembelresolver/lib")
 
 def sendMail(text):
     config = ConfigParser.RawConfigParser()
-    config.read("mailConfig.cfg")
+    config.read(expanduser("~/mailConfig.cfg"))
     
     recipient = config.get("Mail", "recipient")
     sender = config.get("Mail", "sender")
@@ -54,21 +56,19 @@ counter = 0
 for f in s.getContent():
     print f.url
     f.url = "http://bs.to/" + f.url
-    if counter > 3 and counter < 5:
-        f.displayName = "test"
-        for h in f.getContent():
-            h.hoster = h.name
-            h.url = "http://bs.to/" + h.url
-             
-            try:
-                h.getVideoUrl()
-            except FileNotExistsException:
-                res += "Folgende url wird nicht gefunden: " + h.url + "\n"
-                fileNotFoundUrls.append(h.url)
-            except:
-                res += "Folgende url verursacht einen Fehler: " + h.url + "\n"
-                exceptionUrls.append(h.url)
-    counter += 1
+    f.displayName = "test"
+    for h in f.getContent():
+        h.hoster = h.name
+        h.url = "http://bs.to/" + h.url
+         
+        try:
+            h.getVideoUrl()
+        except FileNotExistsException:
+            res += "Folgende url wird nicht gefunden: " + h.url + "\n"
+            fileNotFoundUrls.append(h.url)
+        except:
+            res += "Folgende url verursacht einen Fehler: " + h.url + "\n"
+            exceptionUrls.append(h.url)
 
 sendMail(res)
 #fp.searchFilm()
