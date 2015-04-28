@@ -12,17 +12,23 @@ import getpass
 #print vivo.Vivo().getVideoUrl("http://vivo.sx/2f06e20a67")
 
 def sendMail(text):
+    recipient = ""
+    sender = ""
+    senderName = ""
+    password = ""
+    smtpServer = ""
+    
     msg = MIMEText(text)
-    msg.set_unixfrom("Sascha Kronhart")
-    msg['To'] = email.utils.formataddr(('Recipient', 'sascha.kronhart@gmail.com'))
-    msg['From'] = email.utils.formataddr(('Sascha Kronhart', 'bembelkodi@mail.de'))
+    msg.set_unixfrom(senderName)
+    msg['To'] = email.utils.formataddr(('Recipient', recipient))
+    msg['From'] = email.utils.formataddr((senderName, sender))
     msg['Subject'] = 'Test from bembelresolver'
     
-    server = smtplib.SMTP_SSL("smtp.mail.de")
+    server = smtplib.SMTP_SSL(smtpServer)
     try:
         server.ehlo()
-        server.login("bembelkodi@mail.de", "E1ntracht")
-        server.sendmail("bembelkodi@mail.de", "sascha.kronhart@gmail.com", msg.as_string())
+        server.login(sender, password)
+        server.sendmail(sender, recipient, msg.as_string())
     finally:
         server.quit()
         
