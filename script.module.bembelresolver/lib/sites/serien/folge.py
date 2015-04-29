@@ -3,7 +3,7 @@ import help_fns
 from sites.serien.hoster import Hoster
 
 class Folge:
-    regexHoster = 'href="(?P<url>.*)"><span class="icon (.*)"></span> (?P<name>.*) - Teil 1</a>'
+    regexHoster = 'href="(?P<url>.*)"><span\n\W*class="icon (.*)"></span> (?P<name>.*) - Teil 1</a>'
 
     def init(self, url, displayName):
         self.url = url

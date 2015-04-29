@@ -1,5 +1,7 @@
 import re
 import urllib2
+import urllib
+import zlib
 
 from hoster import streamcloud
 from hoster import videoweed
@@ -14,7 +16,7 @@ from hoster import played
 from hoster import nowvideo
 from hoster import divxstage
 
-reqHeader = 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:19.0) Gecko/20100101 Firefox/19.0'
+reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0'
 
 knownHosts = {'Streamcloud': streamcloud.Streamcloud(),
               'Streamcloud.eu': streamcloud.Streamcloud(),
@@ -55,8 +57,10 @@ def findAtUrlWithData(regex, url, data):
 def openUrl(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', reqHeader)
+    req.add_header('Accept-Encoding', 'gzip, deflate')
+    req.add_header("Connection", "close")
     response = urllib2.urlopen(req)
-    link = response.read()
+    link = zlib.decompress(response.read(), 16+zlib.MAX_WBITS)
     response.close
     return link
 

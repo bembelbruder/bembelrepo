@@ -1,5 +1,6 @@
 import re
 import urllib2
+import zlib
 
 reqHeader = 'Mozilla/5.0 (X11: Ubuntu; Linux i686; rv:33.0) Gecko/20100101 Firefox/33.0'
 
@@ -24,9 +25,9 @@ def openUrl(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', reqHeader)
     req.add_header('Accept-Language', "de,en-US;q=0.7,en;q=0.3")
-    req.add_header('Accept-Encoding', 'None')
+    req.add_header('Accept-Encoding', 'gzip, deflate')
     response = urllib2.urlopen(req)
-    link = response.read()
+    link = zlib.decompress(response.read(), 16+zlib.MAX_WBITS)
     response.close
     return link
 
