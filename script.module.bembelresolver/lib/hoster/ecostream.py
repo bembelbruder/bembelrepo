@@ -25,7 +25,7 @@ class Ecostream(BaseHoster):
 		tmpId = re.compile("http://www.ecostream.tv/stream/([^.]*)\\.html").findall(url)[0]
 		footerhash = re.compile("footerhash='([^']*)'").findall(link)[0]
 		superslots = re.compile("superslots='([^']*)'").findall(link)[0]
-		url = help_fns.findAtUrl("post\\('([^']*)'", "http://www.ecostream.tv/js/ecoss.js")[3]
+		url = help_fns.findAtUrlAsGroup("post\\('([^']*)'", "http://www.ecostream.tv/js/ecoss.js")[3]
 	
 		data = {'id': tmpId, 'tpm': footerhash + superslots}
 		data = urllib.urlencode(data)

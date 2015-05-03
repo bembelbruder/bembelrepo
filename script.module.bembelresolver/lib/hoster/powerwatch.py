@@ -1,20 +1,33 @@
 import help_fns
 import urllib
 import time
+import re
 
 from hoster.BaseHoster import BaseHoster
 
 class Powerwatch(BaseHoster):
     regexInnerUrl = 'href="(http://powerwatch[^"]*)"'
     
+    def getName(self, link, name):
+        return re.compile('name="' + name + '" value="([^"]*)"').findall(link)[0]
+
     def getVideoUrl(self, url):
-        regex = '<input type="hidden" name="op" value="(.*)">\n\W*<input type="hidden" name="usr_login" value="(.*)">\n\W*<input type="hidden" name="id" value="(.*)">\n\W*<input type="hidden" name="fname" value="(.*)">\n\W*<input type="hidden" name="referer" value="(.*)">\n\W*<input type="hidden" name="hash" value="(.*)">'
+        link = help_fns.openUrl(url)
+        op = self.getName(link, 'op')
+        usr_login = self.getName(link, 'usr_login')
+        myid = self.getName(link, 'id')
+        fname = self.getName(link, 'fname')
+        referer = self.getName(link, 'referer')
+        myhash = self.getName(link, 'hash')
         
-        dataMatch = help_fns.findAtUrl(regex, url)
-        data = {'op': dataMatch[0][0], 'usr_login': dataMatch[0][1], 'id': dataMatch[0][2], 'fname': dataMatch[0][3],
-                'referer': dataMatch[0][4], 'hash': dataMatch[0][5]}
+        data = {'op': op,
+                'usr_login': usr_login,
+                'id': myid,
+                'fname': fname,
+                'referer': referer,
+                'hash': myhash}
+        print data
         data = urllib.urlencode(data)
-        
         time.sleep(6)
         
         return help_fns.findAtUrlWithData('file:"([^"]*)"', url, data)[0]

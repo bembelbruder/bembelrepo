@@ -49,7 +49,10 @@ def parameters_string_to_dict(parameters):
     return paramDict
 
 def findAtUrl(regex, url):
-    return re.compile(regex).finditer(openUrl(url))
+    return list(re.compile(regex).finditer(openUrl(url)))
+
+def findAtUrlAsGroup(regex, url):
+    return re.compile(regex).findall(openUrl(url))
 
 def findAtUrlWithData(regex, url, data):
     return re.compile(regex).findall(openUrlWithData(url, data))
@@ -57,10 +60,14 @@ def findAtUrlWithData(regex, url, data):
 def openUrl(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', reqHeader)
+    req.add_header('Accept-Language', "de,en-US;q=0.7,en;q=0.3")
     req.add_header('Accept-Encoding', 'gzip, deflate')
-    req.add_header("Connection", "close")
     response = urllib2.urlopen(req)
-    link = zlib.decompress(response.read(), 16+zlib.MAX_WBITS)
+    link = response.read()
+
+    if response.info().getheader("Content-Encoding") == "gzip":
+        link = zlib.decompress(link, 16+zlib.MAX_WBITS)
+    
     response.close
     return link
 
