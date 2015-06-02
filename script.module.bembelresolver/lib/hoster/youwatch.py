@@ -38,3 +38,9 @@ class Youwatch(BaseHoster):
 
 		return "http://" + match[95] + ".youwatch.org:" + match[94] + "/" + match[93] + "/" + match[92] + "." + match[91]
 	
+	def isFileNotExists(self, link):
+		match = re.compile("File Not Found").findall(link)
+		if match:
+			return True
+		else:
+			return False
