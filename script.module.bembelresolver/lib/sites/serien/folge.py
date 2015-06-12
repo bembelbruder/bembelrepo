@@ -29,6 +29,21 @@ class Folge:
             
         return res
     
+    def getUnknowHoster(self):
+        res = []
+        
+        for m in help_fns.findAtUrl(self.regexHoster, self.url):
+            x = m.groupdict()
+            newHoster = Hoster()
+            newHoster.name = x['name']
+            newHoster.url = x['url']
+            newHoster.displayName = self.displayName
+            
+            if not newHoster.name in help_fns.knownHosts:
+                res.append(newHoster)
+    
+        return res
+    
     def isDownloadable(self):
         return False
     

@@ -8,6 +8,7 @@ from email.mime.text import MIMEText
 import smtplib
 import email.utils
 import ConfigParser
+import HosterCollector
 
 
 def sendMail(text):
@@ -44,33 +45,35 @@ class TestDataProvider:
             
     def handleVideoLink(self, url, name):
         print "Spiele Video: " + url
-        
+
+hosterCollector = HosterCollector.HosterCollector()      
 s = Staffel()
 s.url = "http://bs.to/serie/Navy-CIS/10"
-  
-fileNotFoundUrls = []
-exceptionUrls = []
   
 res = ""
 counter = 0
 for f in s.getContent():
-    print f.url
-    f.url = "http://bs.to/" + f.url
-    f.displayName = "test"
-    for h in f.getContent():
-        h.hoster = h.name
-        h.url = "http://bs.to/" + h.url
-          
-        try:
-            h.getVideoUrl()
-        except FileNotExistsException:
-            res += "Folgende url wird nicht gefunden: " + h.url + "\n"
-            fileNotFoundUrls.append(h.url)
-        except:
-            res += "Folgende url verursacht einen Fehler: " + h.url + "\n"
-            exceptionUrls.append(h.url)
- 
-sendMail(res)
+    if counter < 2:
+        print f.url
+        f.url = "http://bs.to/" + f.url
+        f.displayName = "test"
+        for h in f.getContent():
+            h.url = "http://bs.to/" + h.url
+            h.hoster = h.name
+              
+            try:
+                h.getVideoUrl()
+                hosterCollector.addHoster(h.name, h.url, 1)
+            except FileNotExistsException:
+                hosterCollector.addHoster(h.name, h.url, 2)
+            except:
+                hosterCollector.addHoster(h.name, h.url, 3)
+        
+        for h in f.getUnknowHoster():
+            hosterCollector.addHoster(h.name, h.url, 4)
+            
+    counter += 1
+sendMail(hosterCollector.getText())
 #fp.searchFilm()
 #fp.showFilm("http://kkiste.to/exodus-stream.html", "Godzilla")
 #fp.showHoster("http://kinox.to/aGET/Mirror/Exodus-1&Hoster=30&Mirror=1", "StreamCloud.eu", "Godzilla")

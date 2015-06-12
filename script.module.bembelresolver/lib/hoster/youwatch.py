@@ -4,6 +4,7 @@ import cookielib
 import urllib2
 import time
 
+from hoster.FileNotExistsException import FileNotExistsException
 from hoster.BaseHoster import BaseHoster
 
 class Youwatch(BaseHoster):
@@ -19,6 +20,9 @@ class Youwatch(BaseHoster):
 	
 		link = opener.open(url).read()
 	
+		if self.isFileNotExists(link):
+			raise FileNotExistsException
+
 		op = "download1" # getValue('op', link)
 		usr_login = self.getValue('usr_login', link)
 		fname = self.getValue('fname', link)
