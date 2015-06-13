@@ -1,4 +1,5 @@
 from sites.BaseSite import BaseSite
+from sites.BaseSite import ResultBean
 import help_fns
 
 class Kinox(BaseSite):
@@ -8,7 +9,7 @@ class Kinox(BaseSite):
 		self.searchUrl = "http://kinox.to/Search.html?q="
 		self.searchResultPrefix = "http://kinox.to"
 		self.searchRegex = 'src="/gr/sys/lng/(\\d)\.png" alt="language"></td>\\n\\s*<td.*</td>\\n\\s*<td class="Title"><a href="(?P<url>[^"]*)" onclick="return false;">(?P<name>[^"]*)</a> <span class="Year">(\\d{4})'
-		self.hosterRegex = 'rel="(?P<url>[^"]*)">\s<div class="Named">(?P<hoster>[^>]*)</div>'  
+		self.hosterRegex = 'rel="(?P<url>[^"]*(&amp;Mirror=(?P<mirror>\\d))?)">\s<div class="Named">(?P<hoster>[^>]*)</div> <div class="Data"><b>Mirror</b>: (?P<curHost>\\d)/(?P<maxHosts>\\d)<br/>'  
 		self.hosterResultPrefix = "http://kinox.to/aGET/Mirror/"
 		self.partsRegex = '<a rel=\\\\"([^"]*)" class=\\\\"[^"]*">Part (\\d)'
 		
@@ -23,3 +24,20 @@ class Kinox(BaseSite):
 			self.showVideoByLink(link, hosterName, displayName)
 		else:
 			self.dataProvider.printResult(parts)
+
+	def getHostsByFilm(self, pUrl, pDisplayName):
+		res = []
+		match = help_fns.findAtUrl(self.hosterRegex, pUrl)
+
+		for m in match:
+			gd = m.groupdict()
+			if gd['hoster'] in help_fns.knownHosts:
+				for i in range(1,int(gd['maxHosts']) + 1):
+					url =  gd['url'].replace("Mirror=" + gd['curHost'], "Mirror=" + str(i))
+					
+					res.append(ResultBean(gd['hoster'], {"url": self.hosterResultPrefix + url.replace("&amp;", "&"), 
+													 "hoster": gd['hoster'], 
+													 "displayName": pDisplayName, 
+													 "type": "hoster"}))
+
+		return res
