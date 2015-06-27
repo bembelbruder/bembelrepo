@@ -9,7 +9,7 @@ class Kinox(BaseSite):
 		self.searchUrl = "http://kinox.to/Search.html?q="
 		self.searchResultPrefix = "http://kinox.to"
 		self.searchRegex = 'src="/gr/sys/lng/(\\d)\.png" alt="language"></td>\\n\\s*<td.*</td>\\n\\s*<td class="Title"><a href="(?P<url>[^"]*)" onclick="return false;">(?P<name>[^"]*)</a> <span class="Year">(\\d{4})'
-		self.hosterRegex = 'rel="(?P<url>[^"]*(&amp;Mirror=(?P<mirror>\\d))?)">\s<div class="Named">(?P<hoster>[^>]*)</div> <div class="Data"><b>Mirror</b>: (?P<curHost>\\d)/(?P<maxHosts>\\d)<br/>'  
+		self.hosterRegex = 'rel="(?P<url>[^"]*(&amp;Mirror=(?P<mirror>\\d))?)">\s<div class="Named">(?P<hoster>[^>]*)</div> <div class="Data"><b>Mirror</b>: (?P<curHost>\\d{1,2})/(?P<maxHosts>\\d{1,2})<br/>'  
 		self.hosterResultPrefix = "http://kinox.to/aGET/Mirror/"
 		self.partsRegex = '<a rel=\\\\"([^"]*)" class=\\\\"[^"]*">Part (\\d)'
 		

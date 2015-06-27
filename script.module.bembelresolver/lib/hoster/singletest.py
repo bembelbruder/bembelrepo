@@ -1,4 +1,5 @@
-from hoster import videoweed
+from hoster import shared
 
-f = videoweed.Videoweed()
-print f.getVideoUrl("http://www.videoweed.es/file/afdebf34e02d4")
+f = shared.Shared()
+
+print f.getVideoUrl("http://shared.sx/e2184bfcf3")

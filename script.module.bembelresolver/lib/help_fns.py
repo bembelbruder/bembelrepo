@@ -15,6 +15,7 @@ from hoster import vidstream
 from hoster import played
 from hoster import nowvideo
 from hoster import divxstage
+from hoster import shared
 
 reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0'
 
@@ -36,7 +37,9 @@ knownHosts = {'Streamcloud': streamcloud.Streamcloud(),
               'Vivo.sx': vivo.Vivo(),
               'YouWatch': youwatch.Youwatch(),
               'Youwatch.org': youwatch.Youwatch(),
-              'PowerWatch': powerwatch.Powerwatch()}
+              'PowerWatch': powerwatch.Powerwatch(),
+              'Shared': shared.Shared(),
+              'Shared.sx': shared.Shared()}
 
 def parameters_string_to_dict(parameters):
     paramDict = {}
