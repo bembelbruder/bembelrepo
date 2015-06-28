@@ -8,7 +8,7 @@ from email.mime.text import MIMEText
 import smtplib
 import email.utils
 import ConfigParser
-import HosterCollector
+from Test import HosterCollector
 
 
 def sendMail(text):
@@ -53,26 +53,23 @@ s.url = "http://bs.to/serie/Navy-CIS/10"
 res = ""
 counter = 0
 for f in s.getContent():
-    if counter < 2:
-        print f.url
-        f.url = "http://bs.to/" + f.url
-        f.displayName = "test"
-        for h in f.getContent():
-            h.url = "http://bs.to/" + h.url
-            h.hoster = h.name
-              
-            try:
-                h.getVideoUrl()
-                hosterCollector.addHoster(h.name, h.url, 1)
-            except FileNotExistsException:
-                hosterCollector.addHoster(h.name, h.url, 2)
-            except:
-                hosterCollector.addHoster(h.name, h.url, 3)
-        
-        for h in f.getUnknowHoster():
-            hosterCollector.addHoster(h.name, h.url, 4)
-            
-    counter += 1
+    print f.url
+    f.url = "http://bs.to/" + f.url
+    f.displayName = "test"
+    for h in f.getContent():
+        h.url = "http://bs.to/" + h.url
+        h.hoster = h.name
+          
+        try:
+            h.getVideoUrl()
+            hosterCollector.addHoster(h.name, h.url, 1)
+        except FileNotExistsException:
+            hosterCollector.addHoster(h.name, h.url, 2)
+        except:
+            hosterCollector.addHoster(h.name, h.url, 3)
+    
+    for h in f.getUnknowHoster():
+        hosterCollector.addHoster(h.name, h.url, 4)
 sendMail(hosterCollector.getText())
 #fp.searchFilm()
 #fp.showFilm("http://kkiste.to/exodus-stream.html", "Godzilla")
