@@ -3,7 +3,6 @@ from os.path import expanduser
 sys.path.append(expanduser("~/.kodi/addons/script.module.bembelresolver/lib"))
 
 from sites.serien.serie import Serie
-from lib.sites.serien.staffel import Staffel
 import ConfigParser
 import email.utils
 from email.mime.text import MIMEText
@@ -52,6 +51,7 @@ finderBeans = []
 config = ConfigParser.RawConfigParser()
 config.read(expanduser("~/serien.cfg"))
 
+emailText = ""
 for sec in config.sections():
     s = Serie()
     s.init(config.get(sec, "url"))
@@ -60,13 +60,15 @@ for sec in config.sections():
     folge = config.getint(sec, "folge")
 
     if exists(s, staffel, folge + 1):
-        sendMail("Neue Folge gefunden fuer " + sec)
+        emailText += "Neue Folge gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge " + str(folge  + 1) + ")\n"
         config.set(sec, "folge", folge + 1)
     else:
         if exists(s, staffel + 1, 1):
-            sendMail("Neue Staffel gefunden fuer " + sec)
+            emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge 1)\n"
             config.set(sec, "staffel", staffel + 1)
             config.set(sec, "folge", 1)
-            
-with open(expanduser("~/serien.cfg"), 'wb') as configfile:
-    config.write(configfile)
+
+if emailText != "":            
+    with open(expanduser("~/serien.cfg"), 'wb') as configfile:
+        config.write(configfile)
+    sendMail(emailText)
