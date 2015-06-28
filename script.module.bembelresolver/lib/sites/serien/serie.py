@@ -22,6 +22,16 @@ class Serie:
             
         return res
     
+    def getStaffel(self, staffel):
+        res = self.getContent()
+        
+        for s in res:
+            if s.name == "Staffel " + str(staffel):
+                s.url = "http://bs.to/" + s.url
+                return s
+            
+        return None
+    
     def isDownloadable(self):
         return False
     

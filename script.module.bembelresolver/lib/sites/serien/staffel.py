@@ -22,6 +22,15 @@ class Staffel:
             
         return res
     
+    def getFolge(self, folge):
+        res = self.getContent()
+        
+        for f in res:
+            if f.name.startswith(str(folge)):
+                return f
+            
+        return None
+    
     def isDownloadable(self):
         return False
     
