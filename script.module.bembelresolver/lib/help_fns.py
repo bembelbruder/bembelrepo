@@ -17,7 +17,7 @@ from hoster import nowvideo
 from hoster import divxstage
 from hoster import shared
 
-reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:37.0) Gecko/20100101 Firefox/37.0'
+reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:40.0) Gecko/20100101 Firefox/40.0'
 
 knownHosts = {'Streamcloud': streamcloud.Streamcloud(),
               'Streamcloud.eu': streamcloud.Streamcloud(),
