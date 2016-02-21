@@ -65,7 +65,7 @@ for sec in config.sections():
             config.set(sec, "folge", folge + 1)
         else:
             if exists(s, staffel + 1, 1):
-                emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge 1)\n"
+                emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel + 1) + ", Folge 1)\n"
                 config.set(sec, "staffel", staffel + 1)
                 config.set(sec, "folge", 1)
             else:
