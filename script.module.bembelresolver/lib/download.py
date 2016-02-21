@@ -26,7 +26,7 @@ hoster = sys.argv[2]
 url = sys.argv[1]
 filename = sys.argv[3]
 
-downloadUrl = help_fns.knownHosts[hoster].getVideoUrl_Outside(url)
+downloadUrl = help_fns.knownHosts[hoster].getVideoUrlByOutsideLink(url)
 split = urlparse.urlsplit(downloadUrl)
 filename = filename + os.path.splitext(split.path.split("/")[-1])[1]
 DownloaderClass(downloadUrl, filename)

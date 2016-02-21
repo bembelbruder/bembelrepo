@@ -56,17 +56,20 @@ for sec in config.sections():
     s = Serie()
     s.init(config.get(sec, "url"))
     
-    staffel = config.getint(sec, "staffel")
-    folge = config.getint(sec, "folge")
+    while (True):
+        staffel = config.getint(sec, "staffel")
+        folge = config.getint(sec, "folge")
 
-    if exists(s, staffel, folge + 1):
-        emailText += "Neue Folge gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge " + str(folge  + 1) + ")\n"
-        config.set(sec, "folge", folge + 1)
-    else:
-        if exists(s, staffel + 1, 1):
-            emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge 1)\n"
-            config.set(sec, "staffel", staffel + 1)
-            config.set(sec, "folge", 1)
+        if exists(s, staffel, folge + 1):
+            emailText += "Neue Folge gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge " + str(folge  + 1) + ")\n"
+            config.set(sec, "folge", folge + 1)
+        else:
+            if exists(s, staffel + 1, 1):
+                emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge 1)\n"
+                config.set(sec, "staffel", staffel + 1)
+                config.set(sec, "folge", 1)
+            else:
+                break
 
 if emailText != "":            
     with open(expanduser("~/serien.cfg"), 'wb') as configfile:
