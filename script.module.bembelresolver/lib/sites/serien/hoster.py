@@ -1,6 +1,8 @@
 import help_fns
 from urllib import urlretrieve
 import os
+from os.path import expanduser
+
 
 class Hoster:
     
@@ -25,4 +27,4 @@ class Hoster:
     def download(self):
         fileUrl = self.getVideoUrl()
         filename, fileExtension = os.path.splitext(fileUrl)
-        urlretrieve(self.getVideoUrl(), "/home/sascha/Videos/" + self.displayName + fileExtension)
+        urlretrieve(self.getVideoUrl(), expanduser("~/Videos/" + self.displayName + fileExtension))
