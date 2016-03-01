@@ -1,4 +1,6 @@
 import help_fns
+from urllib import urlretrieve
+import os
 
 class Hoster:
     
@@ -19,3 +21,8 @@ class Hoster:
 
     def isDownloadable(self):
         return True
+
+    def download(self):
+        fileUrl = self.getVideoUrl()
+        filename, fileExtension = os.path.splitext(fileUrl)
+        urlretrieve(self.getVideoUrl(), "/home/sascha/Videos/" + self.displayName + fileExtension)

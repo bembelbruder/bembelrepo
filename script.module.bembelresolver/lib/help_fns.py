@@ -17,7 +17,7 @@ from hoster import nowvideo
 from hoster import divxstage
 from hoster import shared
 
-reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:40.0) Gecko/20100101 Firefox/40.0'
+reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.00'
 
 knownHosts = {'Streamcloud': streamcloud.Streamcloud(),
               'Streamcloud.eu': streamcloud.Streamcloud(),
@@ -77,8 +77,11 @@ def openUrl(url):
 def openUrlWithData(url, data):
     req = urllib2.Request(url)
     req.add_header('User-Agent', reqHeader)
+    req.add_header('Host', 'cine.to')
+    req.add_header('Accept-Language', 'de,en-US;q=0.7,en;q=0.3')
     response = urllib2.urlopen(req, data)
     link = response.read()
+
     response.close
     return link
 

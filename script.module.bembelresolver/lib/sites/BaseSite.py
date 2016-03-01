@@ -6,8 +6,8 @@ from hoster.FileNotExistsException import FileNotExistsException
 class BaseSite:
 	
 	def __init__(self, dataProvider):
-		self.dataProvider = dataProvider
 		self.searchResultPrefix = ""
+		self.dataProvider = dataProvider
 		self.partsRegex = ""
 		self.hosterResultPrefix = ""
 	
@@ -41,15 +41,23 @@ class BaseSite:
 		self.showVideoByUrl(url, hosterName, displayName)
 	
 	def searchFilm(self):
-		url = self.searchUrl + self.dataProvider.getSearchString()
+		match = self.getSearchMatch()
 		res = []
+		for r in match:
+			res.append(ResultBean(r["name"], {"url": self.searchResultPrefix + r["url"], "displayName": r["name"], "type": "film"}))
+		
+		self.dataProvider.printResult(res)
+		
+	def getSearchMatch(self):
+		res = []
+		url = self.searchUrl + self.dataProvider.getSearchString()
 		match = help_fns.findAtUrl(self.searchRegex, url)
 		for r in match:
 			x = r.groupdict()
-			res.append(ResultBean(x["name"], {"url": self.searchResultPrefix + x["url"], "displayName": x["name"], "type": "film"}))
+			res.append(x)
 		
-		self.dataProvider.printResult(res)
-
+		return res
+	
 	def getParts(self, link, hoster, displayName):
 		if self.partsRegex == "":
 			return []

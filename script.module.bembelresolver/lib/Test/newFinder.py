@@ -21,6 +21,13 @@ def exists(serie, staffel, number):
         return f != None
     else:
         return False
+    
+def download(serie, staffel, number):
+    s = serie.getStaffel(staffel)
+    f = s.getFolge(number)
+    f.url = "http://bs.to/" + f.url
+    f.displayName = serie.name + "_" + str(staffel) + "_" + str(number)
+    f.download()
 
 def sendMail(text):
     config = ConfigParser.RawConfigParser()
@@ -55,16 +62,19 @@ emailText = ""
 for sec in config.sections():
     s = Serie()
     s.init(config.get(sec, "url"))
+    s.name = sec
     
     while (True):
         staffel = config.getint(sec, "staffel")
         folge = config.getint(sec, "folge")
 
         if exists(s, staffel, folge + 1):
+            download(s, staffel, folge + 1)
             emailText += "Neue Folge gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge " + str(folge  + 1) + ")\n"
             config.set(sec, "folge", folge + 1)
         else:
             if exists(s, staffel + 1, 1):
+                download(s, staffel + 1, 1)
                 emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel + 1) + ", Folge 1)\n"
                 config.set(sec, "staffel", staffel + 1)
                 config.set(sec, "folge", 1)
