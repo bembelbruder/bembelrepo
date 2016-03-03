@@ -26,7 +26,7 @@ def download(serie, staffel, number):
     s = serie.getStaffel(staffel)
     f = s.getFolge(number)
     f.url = "http://bs.to/" + f.url
-    f.displayName = serie.name + "_" + str(staffel) + "_" + str(number)
+    f.displayName = serie.name + "_" + str(staffel).zfill(2) + "_" + f.name
     f.download()
 
 def sendMail(text):

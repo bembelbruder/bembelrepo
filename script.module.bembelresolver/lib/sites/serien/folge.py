@@ -13,7 +13,6 @@ class Folge:
         return {"url": self.url, "type": "folge", "displayName": self.name}
     
     def getContent(self):
-        print "test"
         res = []
         
         for m in help_fns.findAtUrl(self.regexHoster, self.url):
