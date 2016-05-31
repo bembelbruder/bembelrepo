@@ -30,12 +30,20 @@ class Folge:
     
     def download(self):
         hoster = self.getContent()
-        for h in hoster:
-            if h.name == "Streamcloud":
-                h.hoster = "Streamcloud"
+        res = self.tryDownloadHoster(hoster, "Streamcloud")
+        if not res:
+            self.tryDownloadHoster(hoster, "Vivo")
+                
+    def tryDownloadHoster(self, allHoster, hoster):
+        for h in allHoster:
+            if h.name == hoster:
+                h.hoster = hoster
                 h.url = "http://bs.to/" + h.url
                 h.displayName = self.displayName
                 h.download()
+                return True
+            
+        return False
     
     def getUnknowHoster(self):
         res = []
