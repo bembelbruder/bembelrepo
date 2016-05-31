@@ -1,5 +1,5 @@
-from hoster import streamcloud
+from lib.hoster.vivo import Vivo
 
-f = streamcloud()
+f = Vivo()
 
-print f.getVideoUrl("http://streamcloud.eu/njouloz1iynz/The_100_-_02x11_-_GerDub.avi.html")
+print f.getVideoUrl("http://vivo.sx/0a59b5cb49")
