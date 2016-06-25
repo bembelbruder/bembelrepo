@@ -32,8 +32,6 @@ class Streamcloud(BaseHoster):
 		data = urllib.urlencode(data)
 
 		time.sleep(11)
-		print url
-		print data
 		link = opener.open(url, data).read()
 	
 		match = re.compile(self.regexStreamcloudFile).findall(link)
