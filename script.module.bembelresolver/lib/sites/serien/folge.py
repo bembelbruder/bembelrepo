@@ -35,13 +35,16 @@ class Folge:
             self.tryDownloadHoster(hoster, "Vivo")
                 
     def tryDownloadHoster(self, allHoster, hoster):
-        for h in allHoster:
-            if h.name == hoster:
-                h.hoster = hoster
-                h.url = "http://bs.to/" + h.url
-                h.displayName = self.displayName
-                h.download()
-                return True
+        try:
+            for h in allHoster:
+                if h.name == hoster:
+                    h.hoster = hoster
+                    h.url = "http://bs.to/" + h.url
+                    h.displayName = self.displayName
+                    h.download()
+                    return True
+        except:
+            return False
             
         return False
     

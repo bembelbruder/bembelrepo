@@ -13,6 +13,7 @@ class Serie:
     
     def getContent(self):
         res = []
+        print self.regexStaffeln
         for m in help_fns.findAtUrl(self.regexStaffeln, self.url):
             x = m.groupdict()
             newStaffel = Staffel()

@@ -27,4 +27,7 @@ class Hoster:
     def download(self):
         fileUrl = self.getVideoUrl()
         filename, fileExtension = os.path.splitext(fileUrl)
+        if fileExtension == "":
+            fileExtension = ".mp4"
+            
         urlretrieve(self.getVideoUrl(), expanduser("~/Videos/" + self.displayName + fileExtension))

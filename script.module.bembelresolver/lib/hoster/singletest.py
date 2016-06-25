@@ -1,5 +1,5 @@
-from lib.hoster.vivo import Vivo
+from lib.hoster.streamcloud import Streamcloud
 
-f = Vivo()
+f = Streamcloud()
 
-print f.getVideoUrl("http://vivo.sx/0a59b5cb49")
+print f.getVideoUrl("http://streamcloud.eu/350361odfo04/How.to.Get.Away.with.Murder.S01E12.German.DVDRip.x264-iNTENTiON.mkv.html")

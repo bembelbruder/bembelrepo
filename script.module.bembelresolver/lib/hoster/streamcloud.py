@@ -3,6 +3,7 @@ import urllib2
 import urllib
 import re
 import time
+import help_fns
 
 from hoster.FileNotExistsException import FileNotExistsException
 from hoster.BaseHoster import BaseHoster
@@ -29,8 +30,10 @@ class Streamcloud(BaseHoster):
 		data = {'op': dataMatch[0][0], 'usr_login': '', 'id': dataMatch[0][1], 'fname': dataMatch[0][2],
 				'referer': '', 'hash': '', 'imhuman': dataMatch[0][4]}
 		data = urllib.urlencode(data)
-	
+
 		time.sleep(11)
+		print url
+		print data
 		link = opener.open(url, data).read()
 	
 		match = re.compile(self.regexStreamcloudFile).findall(link)
