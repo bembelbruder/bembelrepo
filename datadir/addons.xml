@@ -78,7 +78,7 @@
 
 <addon id="script.module.bembelresolver"
 	   name="bembelresolver"
-	   version="0.9.7"
+	   version="0.9.8"
 	   provider-name="bembelbruder">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
