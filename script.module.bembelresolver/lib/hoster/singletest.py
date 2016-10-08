@@ -1,5 +1,5 @@
-from lib.hoster.streamcloud import Streamcloud
+from lib.hoster.vidto import Vidto
 
-f = Streamcloud()
+f = Vidto()
 
-print f.getVideoUrl("http://streamcloud.eu/350361odfo04/How.to.Get.Away.with.Murder.S01E12.German.DVDRip.x264-iNTENTiON.mkv.html")
+print f.getVideoUrl("http://vidto.me/1p4580b723b0.html")

@@ -12,7 +12,9 @@ class Youwatch(BaseHoster):
 	
 	def getValue(self, name, link):
 		regex = '"' + name + '" value="([^"]*)"' 
-		return re.compile(regex).findall(link)[0]
+		res = re.compile(regex).findall(link)[0]
+		print res
+		return res
 	
 	def getVideoUrl(self, url):
 		cj = cookielib.CookieJar()
@@ -24,6 +26,7 @@ class Youwatch(BaseHoster):
 			raise FileNotExistsException
 
 		op = "download1" # getValue('op', link)
+		print link
 		usr_login = self.getValue('usr_login', link)
 		fname = self.getValue('fname', link)
 		referer = self.getValue('referer', link)

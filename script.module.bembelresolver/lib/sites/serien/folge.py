@@ -22,6 +22,7 @@ class Folge:
             newHoster.url = x['url']
             newHoster.displayName = self.displayName
             
+            print newHoster.name
             if newHoster.name in help_fns.knownHosts:
                 res.append(newHoster)
                 

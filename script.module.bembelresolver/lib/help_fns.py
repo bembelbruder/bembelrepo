@@ -16,6 +16,7 @@ from hoster import played
 from hoster import nowvideo
 from hoster import divxstage
 from hoster import shared
+from hoster import vidto
 
 reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.00'
 
@@ -35,6 +36,7 @@ knownHosts = {'Streamcloud': streamcloud.Streamcloud(),
               'DivXStage': divxstage.Divxstage(),
               'Vivo': vivo.Vivo(),
               'Vivo.sx': vivo.Vivo(),
+              'Vidto': vidto.Vidto(),
               'YouWatch': youwatch.Youwatch(),
               'Youwatch.org': youwatch.Youwatch(),
               'PowerWatch': powerwatch.Powerwatch(),
