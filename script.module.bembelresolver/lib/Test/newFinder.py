@@ -1,6 +1,6 @@
 import sys
 from os.path import expanduser
-sys.path.append(expanduser("~/.kodi/addons/script.module.bembelresolver/lib"))
+sys.path.append(expanduser("~/.xbmc/addons/script.module.bembelresolver/lib"))
 
 from sites.serien.serie import Serie
 import ConfigParser
@@ -73,11 +73,14 @@ for sec in config.sections():
             emailText += "Neue Folge gefunden fuer " + sec + " (Staffel " + str(staffel) + ", Folge " + str(folge  + 1) + ")\n"
             config.set(sec, "folge", folge + 1)
         else:
-            if exists(s, staffel + 1, 1):
-                download(s, staffel + 1, 1)
-                emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel + 1) + ", Folge 1)\n"
-                config.set(sec, "staffel", staffel + 1)
-                config.set(sec, "folge", 1)
+            if config.getboolean(sec, "alleStaffeln"):
+                if exists(s, staffel + 1, 1):
+                    download(s, staffel + 1, 1)
+                    emailText += "Neue Staffel gefunden fuer " + sec + " (Staffel " + str(staffel + 1) + ", Folge 1)\n"
+                    config.set(sec, "staffel", staffel + 1)
+                    config.set(sec, "folge", 1)
+                else:
+                    break
             else:
                 break
 

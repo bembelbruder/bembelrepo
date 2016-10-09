@@ -33,7 +33,11 @@ class Folge:
         hoster = self.getContent()
         res = self.tryDownloadHoster(hoster, "Streamcloud")
         if not res:
-            self.tryDownloadHoster(hoster, "Vivo")
+            res = self.tryDownloadHoster(hoster, "Vivo")
+        if not res:
+            res = self.tryDownloadHoster(hoster, "Vidto")
+        if not res:
+            res = self.tryDownloadHoster(hoster, 'Powerwatch')
                 
     def tryDownloadHoster(self, allHoster, hoster):
         try:
