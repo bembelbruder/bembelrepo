@@ -1,6 +1,6 @@
 import sys
 from os.path import expanduser
-sys.path.append(expanduser("~/.xbmc/addons/script.module.bembelresolver/lib"))
+sys.path.append(expanduser("~/.kodi/addons/script.module.bembelresolver/lib"))
 
 from sites.serien.serie import Serie
 import ConfigParser
