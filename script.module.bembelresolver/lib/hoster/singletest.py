@@ -1,5 +1,5 @@
-from lib.hoster.vidto import Vidto
+from lib.hoster.powerwatch import Powerwatch
 
-f = Vidto()
+f = Powerwatch()
 
-print f.getVideoUrl("http://vidto.me/1p4580b723b0.html")
+print f.getVideoUrl_ByOutsideUrl("https://bs.to/serie/Startrek-Deep-Space-Nine/4/26-Das-Urteil/PowerWatch-1")

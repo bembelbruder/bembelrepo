@@ -13,6 +13,7 @@ class Powerwatch(BaseHoster):
 
     def getVideoUrl(self, url):
         link = help_fns.openUrl(url)
+        url = re.compile("action='(http://powerwatch.pw/[^']*)").findall(link)[0]
         op = self.getName(link, 'op')
         usr_login = self.getName(link, 'usr_login')
         myid = self.getName(link, 'id')
