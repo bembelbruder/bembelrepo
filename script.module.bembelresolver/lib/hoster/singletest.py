@@ -1,5 +1,6 @@
 from lib.hoster.powerwatch import Powerwatch
+from lib.sites.serien.hoster import Hoster
 
-f = Powerwatch()
-
-print f.getVideoUrl_ByOutsideUrl("https://bs.to/serie/Startrek-Deep-Space-Nine/4/26-Das-Urteil/PowerWatch-1")
+h = Hoster()
+h.init("https://bs.to/serie/Navy-CIS/13/23-Toedlicher-Wettlauf/Vidto-1", 'Vidto', 'test')
+print h.getVideoUrl()

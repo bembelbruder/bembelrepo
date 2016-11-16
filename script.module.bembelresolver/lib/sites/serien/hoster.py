@@ -1,5 +1,6 @@
 import help_fns
 from urllib import urlretrieve
+import urllib2
 import os
 from os.path import expanduser
 

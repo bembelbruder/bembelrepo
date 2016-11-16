@@ -1,5 +1,6 @@
 import help_fns
 import re
+import urllib2
 
 class BaseHoster:
     def getVideoUrl_ByOutsideLink(self, link):
@@ -11,8 +12,14 @@ class BaseHoster:
     def getInnerUrlByLink(self, link):
         regexInnerUrl = "https://bs.to/out/\d*"
         url = re.compile(regexInnerUrl).findall(link)[0]
-        return url
+        return self.getFinalUrl(url)
     
     def getInnerUrlByUrl(self, url):
         link = help_fns.openUrl(url)
         return self.getInnerUrlByLink(link)
+    
+    def getFinalUrl(self, url):
+        req = urllib2.Request(url)
+        res = urllib2.urlopen(req)
+        return res.geturl()
+    

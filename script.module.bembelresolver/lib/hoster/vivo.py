@@ -53,3 +53,29 @@ class Vivo(BaseHoster):
 			return True
 		else:
 			return False
+
+def get_media_url(self, host, media_id):
+    web_url = self.get_url(host, media_id)
+
+    # get landing page
+    resp = self.net.http_GET(web_url, headers={'Referer': web_url})
+    html = resp.content
+    post_url = resp.get_url()
+
+    # read POST variables into data
+    data = helpers.get_hidden(html)
+    html = self.net.http_POST(post_url, data, headers=({'Referer': web_url})).content
+
+    # search for content tag
+    r = re.search(r'class="stream-content" data-url', html)
+    if not r: raise ResolverError('page structure changed')
+
+    # read the data-url
+    r = re.findall(r'data-url="?(.+?)"', html)
+    if not r: raise ResolverError('video not found')
+
+    # return media URL
+    return r[0]
+	
+def get_url(self, host, media_id):
+	return 'http://vivo.sx/%s' % media_id
