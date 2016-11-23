@@ -16,7 +16,11 @@ class Hoster:
         return {"url": self.url, "type": "hoster", "displayName": self.displayName, "hoster": self.name}
         
     def getVideoUrl(self):
-        return help_fns.knownHosts[self.hoster].getVideoUrl_ByOutsideUrl(self.url)
+        regexInnerUrl = "https://bs.to/out/\d*"
+        self.url = help_fns.findAtUrlAsGroup(regexInnerUrl, self.url)[0]
+        self.url = self.getFinalUrl(self.url)
+
+        return help_fns.knownHosts[self.hoster].getVideoUrl(self.url)
     
     def getImage(self):
         return ""
@@ -32,3 +36,8 @@ class Hoster:
             fileExtension = ".mp4"
             
         urlretrieve(self.getVideoUrl(), expanduser("~/Videos/" + self.displayName + fileExtension))
+        
+    def getFinalUrl(self, url):
+        req = urllib2.Request(url)
+        res = urllib2.urlopen(req)
+        return res.geturl()

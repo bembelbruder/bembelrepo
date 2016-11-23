@@ -10,16 +10,10 @@ class BaseHoster:
         return self.getVideoUrl(self.getInnerUrlByUrl(url))
     
     def getInnerUrlByLink(self, link):
-        regexInnerUrl = "https://bs.to/out/\d*"
-        url = re.compile(regexInnerUrl).findall(link)[0]
-        return self.getFinalUrl(url)
+        return re.compile(self.regexInnerUrl).findall(link)[0]
     
     def getInnerUrlByUrl(self, url):
         link = help_fns.openUrl(url)
         return self.getInnerUrlByLink(link)
     
-    def getFinalUrl(self, url):
-        req = urllib2.Request(url)
-        res = urllib2.urlopen(req)
-        return res.geturl()
     
