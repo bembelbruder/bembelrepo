@@ -5,6 +5,8 @@ import time
 import cookielib
 import urllib2
 import ssl
+import helpers
+import common
 #import requests
 
 from hoster.BaseHoster import BaseHoster
@@ -12,10 +14,12 @@ from hoster.FileNotExistsException import FileNotExistsException
 
 class Vivo(BaseHoster):
 	regexInnerUrl = "href='(http://vivo.sx/[^']*)'"
+	
+	def __init__(self):
+		self.net = common.Net()
 
 	def getVideoUrl(self, pUrl):
-		print pUrl
-		
+		return self.get_media_url(pUrl)
 # 		headers = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 # 				   'Accept-Encoding': 'gzip, deflate, br',
 # 				   'Accept-Language': 'en-US,en;q=0.5',
@@ -54,28 +58,26 @@ class Vivo(BaseHoster):
 		else:
 			return False
 
-def get_media_url(self, host, media_id):
-    web_url = self.get_url(host, media_id)
-
-    # get landing page
-    resp = self.net.http_GET(web_url, headers={'Referer': web_url})
-    html = resp.content
-    post_url = resp.get_url()
-
-    # read POST variables into data
-    data = helpers.get_hidden(html)
-    html = self.net.http_POST(post_url, data, headers=({'Referer': web_url})).content
-
-    # search for content tag
-    r = re.search(r'class="stream-content" data-url', html)
-    if not r: raise ResolverError('page structure changed')
-
-    # read the data-url
-    r = re.findall(r'data-url="?(.+?)"', html)
-    if not r: raise ResolverError('video not found')
-
-    # return media URL
-    return r[0]
+	def get_media_url(self, url):
+		web_url = url
 	
-def get_url(self, host, media_id):
-	return 'http://vivo.sx/%s' % media_id
+		# get landing page
+		resp = self.net.http_GET(web_url, headers={'Referer': web_url})
+		html = resp.content
+		post_url = resp.get_url()
+	
+		# read POST variables into data
+		data = helpers.get_hidden(html)
+		html = self.net.http_POST(post_url, data, headers=({'Referer': web_url})).content
+	
+		# search for content tag
+		r = re.search(r'class="stream-content" data-url', html)
+	
+		# read the data-url
+		r = re.findall(r'data-url="?(.+?)"', html)
+	
+		# return media URL
+		return r[0]
+		
+	def get_url(self, host, media_id):
+		return 'http://vivo.sx/%s' % media_id

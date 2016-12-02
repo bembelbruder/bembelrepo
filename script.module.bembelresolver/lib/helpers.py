@@ -1,7 +1,5 @@
 import re
 import urllib
-from urlresolver import common
-from urlresolver.resolver import ResolverError
 
 def get_hidden(html, form_id=None, index=None):
     hidden = {}
@@ -18,7 +16,6 @@ def get_hidden(html, form_id=None, index=None):
                 if match and match1:
                     hidden[match.group(1)] = match1.group(1)
             
-    common.log_utils.log_debug('Hidden fields are: %s' % (hidden))
     return hidden
 
 def append_headers(headers):

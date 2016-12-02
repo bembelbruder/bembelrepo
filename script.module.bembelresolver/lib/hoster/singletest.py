@@ -1,6 +1,4 @@
-from lib.hoster.powerwatch import Powerwatch
-from lib.sites.serien.hoster import Hoster
+from lib.hoster.vivo import Vivo
 
-h = Hoster()
-h.init("https://bs.to/serie/Navy-CIS/13/23-Toedlicher-Wettlauf/Vidto-1", 'Vidto', 'test')
-print h.getVideoUrl()
+v = Vivo()
+print v.getVideoUrl("https://vivo.sx/525a10aec6")
