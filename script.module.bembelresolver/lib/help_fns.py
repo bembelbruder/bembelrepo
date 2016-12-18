@@ -18,7 +18,7 @@ from hoster import divxstage
 from hoster import shared
 from hoster import vidto
 
-reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:41.0) Gecko/20100101 Firefox/41.00'
+reqHeader = 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:50.0) Gecko/20100101 Firefox/50.0'
 
 knownHosts = {'Streamcloud': streamcloud.Streamcloud(),
               'Streamcloud.eu': streamcloud.Streamcloud(),
@@ -66,7 +66,6 @@ def openUrl(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', reqHeader)
     req.add_header('Accept-Language', "de,en-US;q=0.7,en;q=0.3")
-    req.add_header('Accept-Encoding', 'gzip, deflate')
     response = urllib2.urlopen(req)
     link = response.read()
 
@@ -80,7 +79,11 @@ def openUrlWithData(url, data):
     req = urllib2.Request(url)
     req.add_header('User-Agent', reqHeader)
     req.add_header('Host', 'cine.to')
+    req.add_header('Accept-Encoding', 'gzip, deflate')
     req.add_header('Accept-Language', 'de,en-US;q=0.7,en;q=0.3')
+    req.add_header('Cache-Control', 'max-age=0')
+    req.add_header('Upgrade-Insecure-Requests', '1')
+    req.add_header('Cookie', '__cfduid=d22848868d6853aff71e0e23bb64634cd1481743023; cf_clearance=afb6b990ec7cd2eba01f7ff25ab22af7f3672cff-1481743033-10800; SSTOCDN=9a2r8gv65ndjkk3malvnqrqbc2')
     response = urllib2.urlopen(req, data)
     link = response.read()
 

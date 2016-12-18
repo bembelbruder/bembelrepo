@@ -1,4 +1,6 @@
-from lib.hoster.vivo import Vivo
+from lib.sites.serienstream.anfangsbuchstaben import Anfangsbuchstaben
 
-v = Vivo()
-print v.getVideoUrl("https://vivo.sx/525a10aec6")
+s = Anfangsbuchstaben()
+s.url = "http://serienstream.to/serien"
+for staffel in s.getContent():
+    print staffel.name
