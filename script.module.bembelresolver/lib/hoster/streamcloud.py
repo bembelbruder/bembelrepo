@@ -18,6 +18,8 @@ class Streamcloud(BaseHoster):
 		return self.getVideoUrl(tmp)
 	
 	def getVideoUrl(self, url):
+		print url
+		
 		cj = cookielib.CookieJar()
 		opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 		

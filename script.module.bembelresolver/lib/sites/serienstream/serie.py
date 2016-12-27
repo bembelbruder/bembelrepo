@@ -6,19 +6,22 @@ class Serie:
     regexStaffeln = '<a( class="active")? href="(?P<url>[^"]*)" title="(?P<name>Staffel [^"]*)">.*</a>'
 
 
-    def init(self, url):
+    def init(self, url, img):
         self.url = url
+        self.img = img
         
     def getParams(self):
-        return {"url": self.url, "type": "serie"}
+        return {"url": self.url, "type": "serie", "img": self.img}
     
     def getContent(self):
         res = []
         for m in help_fns.findAtUrl(self.regexStaffeln, self.url):
+            print self.img
             x = m.groupdict()
             newStaffel = Staffel()
             newStaffel.name = x['name']
             newStaffel.url = x['url']
+            newStaffel.img = self.img
             res.append(newStaffel)
             
         return res

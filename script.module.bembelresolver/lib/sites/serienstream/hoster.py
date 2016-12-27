@@ -2,26 +2,28 @@ import help_fns
 from urllib import urlretrieve
 import urllib2
 import os
+import requests
 from os.path import expanduser
+
 
 
 class Hoster:
     
-    def init(self, url, hoster, displayName):
+    def init(self, url, hoster, displayName, img):
         self.url = url
         self.hoster = hoster
         self.displayName = displayName
+        self.img = img
     
     def getParams(self):
-        return {"url": self.url, "type": "hoster", "displayName": self.displayName, "hoster": self.name}
+        return {"url": self.url, "type": "hoster", "displayName": self.displayName, "hoster": self.name, 'img': self.img}
         
     def getVideoUrl(self):
-        print self.url
+        self.url = self.getFinalUrl(self.url)
         return help_fns.knownHosts[self.hoster].getVideoUrl(self.url)
     
     def getImage(self):
-        return ""
-        #return "https:" + help_fns.findAtUrl('<img src="(//s.burning-seri.es/img/cover/[^"]*)" alt="Cover"/>', self.url)[0]
+        return self.img
 
     def isDownloadable(self):
         return True
@@ -35,6 +37,5 @@ class Hoster:
         urlretrieve(self.getVideoUrl(), expanduser("~/Videos/" + self.displayName + fileExtension))
         
     def getFinalUrl(self, url):
-        req = urllib2.Request(url)
-        res = urllib2.urlopen(req)
-        return res.geturl()
+        r = requests.get(url)
+        return r.url

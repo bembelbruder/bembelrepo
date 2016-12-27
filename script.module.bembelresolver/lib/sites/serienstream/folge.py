@@ -1,27 +1,33 @@
 import help_fns
+import requests
+import re
 
 from sites.serienstream.hoster import Hoster
 
 class Folge:
-    regexHoster = 'href="(?P<url>.*)"><span\n?\W*class="icon (.*)"></span> (?P<name>.*) - Teil 1</a>'
-    regexHoster = '<a href="(?P<url>[^"]*)" target="_blank">(\n.*){2}\n\W*<h4>(?P<name>[^"]*)</h4>'
+    regexHoster = '<a href="/(?P<url>[^"]*)" target="_blank">(\n.*){2}\n\W*<h4>(?P<name>[^"]*)</h4>'
 
-    def init(self, url, displayName):
+    def init(self, url, displayName, img):
         self.url = url
         self.displayName = displayName
+        self.img = img
         
     def getParams(self):
-        return {"url": self.url, "type": "folge", "displayName": self.name}
+        print "Image: " + self.img
+        return {"url": self.url, "type": "folge", "displayName": self.name, "img": self.img}
     
     def getContent(self):
         res = []
         
-        for m in help_fns.findAtUrl(self.regexHoster, self.url):
+        r = requests.get(self.url)
+
+        for m in re.compile(self.regexHoster).finditer(r.text):
             x = m.groupdict()
             newHoster = Hoster()
             newHoster.name = x['name']
             newHoster.url = x['url']
             newHoster.displayName = self.displayName
+            newHoster.img = self.img
             
             if newHoster.name in help_fns.knownHosts:
                 res.append(newHoster)

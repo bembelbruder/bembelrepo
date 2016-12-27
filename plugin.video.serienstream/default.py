@@ -14,6 +14,7 @@ from sites.serienstream.staffel import Staffel
 from sites.serienstream.folge import Folge
 from sites.serienstream.hoster import Hoster
 from hoster.FileNotExistsException import FileNotExistsException
+from copy_reg import pickle
 
 thisPlugin = int(sys.argv[1])
 urlHost = "http://serienstream.to/"
@@ -31,7 +32,7 @@ def showContent(siteObject):
 	global thisPlugin
 	
 	for o in siteObject.getContent():
-		addDirectoryItem(o.name, o.getParams(), includeDownload=o.isDownloadable())
+		addDirectoryItem(o.name, o.getParams(), o.img, includeDownload=o.isDownloadable())
 	xbmcplugin.endOfDirectory(thisPlugin)
 	
 def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
@@ -60,25 +61,27 @@ url = urllib.unquote(str(params.get("url", "")))
 siteType = urllib.unquote(str(params.get("type", "")))
 hoster = urllib.unquote(str(params.get("hoster", "")))
 displayName = urllib.unquote(str(params.get("displayName", "")))
+img = urllib.unquote(str(params.get("img", "")))
 
 if not sys.argv[2]:
 	showContent(Anfangsbuchstaben())
 else:
+	url = urlHost + url
+
 	if siteType == "hoster":
 		newObject = Hoster()
-		newObject.init(url, hoster, displayName)
+		newObject.init(url, hoster, displayName, img)
 		showVideo(newObject)
 	else:
-		url = urlHost + url
 		if siteType == "serie":
 			newObject = Serie()
-			newObject.init(url)
+			newObject.init(url, img)
 		elif siteType == "folge":
 			newObject = Folge()
-			newObject.init(url, displayName)
+			newObject.init(url, displayName, img)
 		elif siteType == "staffel":
 			newObject = Staffel()
-			newObject.init(url)
+			newObject.init(url, img)
 		elif siteType == "serien":
 			newObject = Serien()
 			newObject.init(url)

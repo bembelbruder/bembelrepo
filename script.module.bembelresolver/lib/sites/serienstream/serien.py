@@ -4,7 +4,8 @@ import re
 from sites.serienstream.serie import Serie
 
 class Serien:
-    regexSerien = '<a href="(?P<url>[^"]*)"(\n.*){6}<h3>(?P<name>[^<]*)<span'
+    img = ""
+    regexSerien = '<a href="(?P<url>[^"]*)"(\n.*){3}src="(?P<img>[^"]*)"(\n.*){3}<h3>(?P<name>[^<]*)<span'
     
     def init(self, url):
         self.url = url
@@ -21,6 +22,7 @@ class Serien:
             newSerie = Serie()
             newSerie.name = x['name']
             newSerie.url = x['url']
+            newSerie.img = "http://serienstream.to/" + x['img']
             res.append(newSerie)
             
         return res
