@@ -3,6 +3,7 @@ import requests
 import re
 
 from sites.serienstream.hoster import Hoster
+from urllib import urlencode
 
 class Folge:
     regexHoster = '<a href="/(?P<url>[^"]*)" target="_blank">(\n.*){2}\n\W*<h4>(?P<name>[^"]*)</h4>'
@@ -13,7 +14,6 @@ class Folge:
         self.img = img
         
     def getParams(self):
-        print "Image: " + self.img
         return {"url": self.url, "type": "folge", "displayName": self.name, "img": self.img}
     
     def getContent(self):

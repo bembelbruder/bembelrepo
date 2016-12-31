@@ -38,7 +38,7 @@ def showContent(siteObject):
 def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 	li = xbmcgui.ListItem(name,iconImage="DefaultFolder.png", thumbnailImage=pic)
 	
-	if includeDownload:
+	if False:
 		scriptPath = getCurrentPath() + "/../script.module.bembelresolver/lib/download.py"
 		videoDir = xbmcaddon.Addon(id="plugin.video.serien").getSetting("downloadDir")
 
@@ -49,7 +49,6 @@ def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 						videoDir + parameters['displayName'] + ")"))
 		li.addContextMenuItems(commands, True)
 		
-	print parameters
 	url = sys.argv[0] + '?' + urllib.urlencode(parameters)
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 	

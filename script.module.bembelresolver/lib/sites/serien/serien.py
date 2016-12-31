@@ -7,7 +7,9 @@ class Serien:
 
     def getContent(self):
         res = []
-        match = help_fns.findAtUrl(self.regexSerien, "http://bs.to/serie-alphabet")
+        help_fns.openUrl("http://bs.to")
+        print "Fertig"
+        match = help_fns.findAtUrl(self.regexSerien, "https://bs.to/serie-alphabet")
         for m in match:
             x = m.groupdict()
             newSerie = Serie()
