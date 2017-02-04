@@ -37,7 +37,7 @@ class Hoster:
         if fileExtension == "":
             fileExtension = ".mp4"
 
-        urlretrieve(self.getVideoUrl(), expanduser("~/Videos/" + self.displayName + fileExtension))
+        urlretrieve(fileUrl, expanduser("~/Videos/" + self.displayName + fileExtension))
         
     def getFinalUrl(self, url):
         r = requests.get(url)
