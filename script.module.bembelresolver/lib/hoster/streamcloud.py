@@ -14,7 +14,7 @@ class Streamcloud(BaseHoster):
 	regexInnerUrl = 'href="(http://streamcloud[^"]*)"'
 	
 	def getVideoUrlByOutsideLink(self, link):
-		tmp = re.compile(self.regexInnerUrl).findall(link)[0]
+		tmp = re.compile(self.regexInnerUrl).findall(link)[1]
 		return self.getVideoUrl(tmp)
 	
 	def getVideoUrl(self, url):

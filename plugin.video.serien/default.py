@@ -47,7 +47,6 @@ def addDirectoryItem(name, parameters={},pic="", includeDownload = False):
 						videoDir + parameters['displayName'] + ")"))
 		li.addContextMenuItems(commands, True)
 		
-	print parameters
 	url = sys.argv[0] + '?' + urllib.urlencode(parameters)
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=li, isFolder=True)
 	

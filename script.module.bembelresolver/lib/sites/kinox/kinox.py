@@ -1,6 +1,7 @@
 from sites.BaseSite import BaseSite
 from sites.BaseSite import ResultBean
 import help_fns
+import re
 
 class Kinox(BaseSite):
 	
@@ -24,6 +25,15 @@ class Kinox(BaseSite):
 			self.showVideoByLink(link, hosterName, displayName)
 		else:
 			self.dataProvider.printResult(parts)
+
+	def showVideoByLink(self, link, hosterName, displayName):
+		link = link.replace("\\", "")
+		print link
+		url = "http://www.kinox.to" + re.compile('src="([^"]*)"').findall(link)[0]
+		print url
+		print help_fns.openUrl(url)
+		url = help_fns.knownHosts[hosterName].getInnerUrlByLink(link)
+		self.showVideoByUrl(url, hosterName, displayName)
 
 	def getHostsByFilm(self, pUrl, pDisplayName):
 		res = []

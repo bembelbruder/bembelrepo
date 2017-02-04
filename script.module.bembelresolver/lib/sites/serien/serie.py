@@ -3,7 +3,7 @@ import help_fns
 from sites.serien.staffel import Staffel
 
 class Serie:
-    regexStaffeln = '<li class=" (current)?"><a href="(?P<url>.*)">(?P<name>.*)</a></li>'
+    regexStaffeln = '<li><a href="(?P<url>[^"]*)">(?P<name>\d*)</a></li>'
 
     def init(self, url):
         self.url = url
@@ -13,6 +13,7 @@ class Serie:
     
     def getContent(self):
         res = []
+        print self.url
         for m in help_fns.findAtUrl(self.regexStaffeln, self.url):
             x = m.groupdict()
             newStaffel = Staffel()
@@ -28,6 +29,7 @@ class Serie:
         for s in res:
             if s.name == "Staffel " + str(staffel):
                 s.url = "http://bs.to/" + s.url
+                print s.url
                 return s
             
         return None

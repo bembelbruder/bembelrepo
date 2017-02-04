@@ -3,6 +3,7 @@ from urllib import urlretrieve
 import urllib2
 import os
 from os.path import expanduser
+import requests
 
 
 class Hoster:
@@ -31,13 +32,13 @@ class Hoster:
 
     def download(self):
         fileUrl = self.getVideoUrl()
+        print fileUrl
         filename, fileExtension = os.path.splitext(fileUrl)
         if fileExtension == "":
             fileExtension = ".mp4"
-            
+
         urlretrieve(self.getVideoUrl(), expanduser("~/Videos/" + self.displayName + fileExtension))
         
     def getFinalUrl(self, url):
-        req = urllib2.Request(url)
-        res = urllib2.urlopen(req)
-        return res.geturl()
+        r = requests.get(url)
+        return r.url

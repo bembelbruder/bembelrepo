@@ -37,6 +37,7 @@ class BaseSite:
 			
 	def showVideoByLink(self, link, hosterName, displayName):
 		link = link.replace("\\", "")
+		print link
 		url = help_fns.knownHosts[hosterName].getInnerUrlByLink(link)
 		self.showVideoByUrl(url, hosterName, displayName)
 	
