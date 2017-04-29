@@ -28,7 +28,7 @@ class help_fns_xbmc:
         item = xbmcgui.ListItem(url)
         item.setInfo( type="Video", infoLabels={ "Title": displayName })
     
-        xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(url, item)
+        xbmc.Player().play(url, item)
         
     def handleFileNotExistsException(self):
         xbmc.executebuiltin("Notification(Fehler, Datei nicht gefunden)")

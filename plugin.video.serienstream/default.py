@@ -24,7 +24,7 @@ def showVideo(hoster):
 
 	try:
 		item = xbmcgui.ListItem(hoster.displayName, thumbnailImage = hoster.getImage())
-		xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER).play(hoster.getVideoUrl(), item)
+		xbmc.Player().play(hoster.getVideoUrl(), item)
 	except FileNotExistsException:
 		xbmc.executebuiltin("Notification(Fehler, Datei nicht gefunden)")
 

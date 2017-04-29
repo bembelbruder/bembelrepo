@@ -1,6 +1,5 @@
-from lib.sites.serienstream.anfangsbuchstaben import Anfangsbuchstaben
+from lib.hoster.openload import Openload
+x = Openload()
+link = x.getVideoUrl("https://openload.co/f/hBnOckZOwgY")
 
-s = Anfangsbuchstaben()
-s.url = "http://serienstream.to/serien"
-for staffel in s.getContent():
-    print staffel.name
+print link
