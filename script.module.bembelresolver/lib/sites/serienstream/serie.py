@@ -3,7 +3,7 @@ import help_fns
 from sites.serienstream.staffel import Staffel
 
 class Serie:
-    regexStaffeln = '<a( class="active")? href="(?P<url>[^"]*)" title="(?P<name>Staffel [^"]*)">.*</a>'
+    regexStaffeln = '<a( class="active")? href="(?P<url>[^"]*)" title="(?P<name>Staffel [^"]*)">\\d{1,2}</a>'
 
 
     def init(self, url, img):

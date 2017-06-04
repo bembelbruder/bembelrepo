@@ -5,7 +5,7 @@ from sites.serienstream.serie import Serie
 
 class Serien:
     img = ""
-    regexSerien = '<a href="(?P<url>[^"]*)"(\n.*){3}src="(?P<img>[^"]*)"(\n.*){3}<h3>(?P<name>[^<]*)<span'
+    regexSerien = '<a href="(?P<url>[^"]*)" title="[^"]*"> <img src="(?P<img>[^"]*)" [^<]*<h3>(?P<name>[^<]*)'
     
     def init(self, url):
         self.url = url
@@ -16,6 +16,7 @@ class Serien:
     def getContent(self):
         res = []
 
+        print self.url
         match = help_fns.findAtUrl(self.regexSerien, self.url)        
         for m in match:
             x = m.groupdict()

@@ -6,7 +6,7 @@ from sites.serienstream.hoster import Hoster
 from urllib import urlencode
 
 class Folge:
-    regexHoster = '<a href="/(?P<url>[^"]*)" target="_blank">(\n.*){2}\n\W*<h4>(?P<name>[^"]*)</h4>'
+    regexHoster = '<a href="/(?P<url>[^"]*)" target="_blank"> <i[^>]*></i> <h4>(?P<name>[^<]*)</h4>'
 
     def init(self, url, displayName, img):
         self.url = url

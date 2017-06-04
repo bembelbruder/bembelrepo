@@ -8,7 +8,7 @@ class Anfangsbuchstaben:
     def getContent(self):
         res = []
 
-        match = help_fns.findAtUrl(self.regexSerien, 'http://serienstream.to/serien')        
+        match = help_fns.findAtUrl(self.regexSerien, 'https://serienstream.to/serien')        
         for m in match:
             x = m.groupdict()
             newSerie = Serien()

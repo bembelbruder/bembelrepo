@@ -17,7 +17,7 @@ from hoster.FileNotExistsException import FileNotExistsException
 from copy_reg import pickle
 
 thisPlugin = int(sys.argv[1])
-urlHost = "http://serienstream.to/"
+urlHost = "https://serienstream.to/"
 
 def showVideo(hoster):
 	global thisPlugin
