@@ -3,7 +3,7 @@ import help_fns
 from sites.serienstream.folge import Folge
 
 class Staffel:
-    regexFolgen = '<td>(?P<nr>\d{1,2})</td>\n.*<td><a href="(?P<url>.*)">\n.*<strong>(?P<name>.*)</strong>'
+    regexFolgen = 'Folge (?P<nr>\d*)\W*</a>\W*</td>\W*<td class="seasonEpisodeTitle">\W*<a href="(?P<url>[^"]*)">\W*<strong>(?P<name>[^<]*)</strong>'
 
     def init(self, url, img):
         self.url = url
