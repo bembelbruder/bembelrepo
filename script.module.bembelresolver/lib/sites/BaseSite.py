@@ -15,6 +15,11 @@ class BaseSite:
 		res = self.getHostsByFilm(url, displayName)
 		
 		self.dataProvider.printResult(res)
+	
+	def showStaffel(self, url, displayName, folgen, addr, seriesId, season):
+		res = self.getEpisoden(url, displayName, folgen, addr, seriesId, season)
+		
+		self.dataProvider.printResult(res)
 
 	def showHoster(self, url, hosterName, displayName):
 		link = help_fns.openUrl(url)
@@ -71,6 +76,21 @@ class BaseSite:
 			
 		return res
 	
+	def getEpisoden(self, pUrl, pDisplayName, pFolgen, addr, seriesId, season):
+		print pFolgen
+		res = []
+		
+		for f in pFolgen.split(","):
+			res.append(ResultBean(f, {"url": pUrl, 
+									  'displayName': pDisplayName,
+									  'addr': addr,
+									  'seriesId': seriesId,
+									  'season': season, 
+									  'episode': f, 
+									  'type': 'episode'}))
+			
+		return res
+	
 	def getHostsByFilm(self, pUrl, pDisplayName):
 		res = []
 		match = help_fns.findAtUrl(self.hosterRegex, pUrl)
@@ -94,13 +114,22 @@ class BaseSite:
 		urlType = urllib.unquote(str(params.get("type")))
 		displayName = urllib.unquote(str(params.get("displayName", "")))
 		hosterName = urllib.unquote(str(params.get("hoster", "")))
-	
+		folgen = urllib.unquote(str(params.get('folgen', "")))
+		addr = urllib.unquote(str(params.get('addr', "")))
+		seriesId = urllib.unquote(str(params.get('seriesId', "")))
+		season = urllib.unquote(str(params.get('season', '')))
+		episode = urllib.unquote(str(params.get('episode', '')))
+
 		if urlType == "film":
 			self.showFilm(url, displayName)
 		elif urlType == "hoster":
 			self.showHoster(url, hosterName, displayName)
 		elif urlType == "part":
 			self.showPart(url, hosterName, displayName)
+		elif urlType == 'staffel':
+			self.showStaffel(url, displayName, folgen, addr, seriesId, season)
+		elif urlType == 'episode':
+			self.showEpisode(url, addr, seriesId, season, episode, displayName)
 		else:
 			self.searchFilm()
 
