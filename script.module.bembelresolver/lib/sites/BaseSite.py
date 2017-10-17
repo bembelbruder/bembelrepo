@@ -98,6 +98,7 @@ class BaseSite:
 		for m in match:
 			gd = m.groupdict()
 			if gd['hoster'] in help_fns.knownHosts:
+				print gd['url']
 				res.append(ResultBean(gd['hoster'], {"url": self.hosterResultPrefix + gd['url'].replace("&amp;", "&"), 
 													 "hoster": gd['hoster'], 
 													 "displayName": pDisplayName, 
