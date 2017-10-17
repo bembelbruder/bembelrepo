@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <addon id="plugin.video.serien"
 	   name="Serien"
 	   version="1.0.8"
@@ -110,4 +111,6 @@
 </addon>
 =======
 >>>>>>> refs/remotes/origin/master
+=======
+>>>>>>> branch 'master' of https://github.com/bembelbruder/bembelrepo.git
 </addons>
