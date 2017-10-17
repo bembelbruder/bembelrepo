@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<<<<<<< HEAD
 <addon id="plugin.video.serien"
 	   name="Serien"
 	   version="1.0.8"
@@ -107,4 +108,6 @@
     <platform>all</platform>
   </extension>
 </addon>
+=======
+>>>>>>> refs/remotes/origin/master
 </addons>
