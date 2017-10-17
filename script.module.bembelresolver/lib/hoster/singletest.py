@@ -1,9 +1,6 @@
-from lib.hoster.openload import Openload
-x = Openload()
-link = x.getVideoUrl("https://openload.co/f/IoyTAYVeB2Y")
+from lib.hoster.rapidvideo import RapidVideo
+
+x = RapidVideo()
+link = x.getVideoUrl("http://www.rapidvideo.com/e/FJXD6P6EJ6")
 
 print link
-
-from lib.sites.kinox import kinox
-x = kinox()
-x.get

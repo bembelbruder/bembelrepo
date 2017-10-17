@@ -53,6 +53,7 @@ class Kinox(BaseSite):
 		
 	def showHoster(self, url, hosterName, displayName):
 		link = help_fns.openUrl(url)
+		
 		parts = self.getParts(link, hosterName, displayName)
 		
 		if len(parts) < 2:
@@ -62,8 +63,7 @@ class Kinox(BaseSite):
 
 	def showVideoByLink(self, link, hosterName, displayName):
 		link = link.replace("\\", "")
-		url = re.compile('"Stream":"<a href="([^"]*)"').findall(link)[0]
-		url = help_fns.knownHosts[hosterName].getInnerUrlByLink(link)
+		url = "http:" + help_fns.knownHosts[hosterName].getInnerUrlByLink(link)
 		self.showVideoByUrl(url, hosterName, displayName)
 
 	def getHostsByFilm(self, pUrl, pDisplayName):
